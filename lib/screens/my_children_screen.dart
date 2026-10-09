@@ -14,10 +14,19 @@ class MyChildrenScreen extends StatefulWidget {
 class _MyChildrenScreenState extends State<MyChildrenScreen> {
   final service = FirebaseService();
 
+  static const Color darkGrey = Color(0xFF454545);
+  static const Color lightGrey = Color(0xFFE6E6E6);
+  static const Color background = Color(0xFFF7F7F7);
+  static const Color orange = Color(0xFFFF8500);
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return const Scaffold(body: Center(child: Text("يرجى تسجيل الدخول")));
+    if (user == null) {
+      return const Scaffold(
+        body: Center(child: Text("يرجى تسجيل الدخول")),
+      );
+    }
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -27,11 +36,11 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF454545),
-              Color(0xFFE6E6E6),
-              Color(0xFFF5F5F5),
+              darkGrey,
+              lightGrey,
+              background,
             ],
-            stops: [0.0, 0.5, 1.0],
+            stops: [0.0, 0.45, 1.0],
           ),
         ),
         child: SafeArea(
@@ -41,18 +50,27 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
-                      BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8),
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 10,
+                      ),
                     ],
                   ),
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black87),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.black87,
+                        ),
                         onPressed: () => Navigator.pop(context),
                       ),
                       const Expanded(
@@ -67,7 +85,10 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.logout, color: Colors.redAccent),
+                        icon: const Icon(
+                          Icons.logout,
+                          color: Colors.redAccent,
+                        ),
                         onPressed: () => FirebaseAuth.instance.signOut(),
                       ),
                     ],
@@ -81,23 +102,37 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                   stream: service.streamMyChildren(user.uid),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator(color: Color(0xFFFF8500)));
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: orange,
+                        ),
+                      );
                     }
                     if (snapshot.hasError) {
                       return Center(
-                        child: Text("خطأ: ${snapshot.error}",
-                            style: const TextStyle(color: Colors.red)),
+                        child: Text(
+                          "خطأ: ${snapshot.error}",
+                          style: const TextStyle(color: Colors.red),
+                        ),
                       );
                     }
                     if (!snapshot.hasData || snapshot.data!.isEmpty) {
                       return const Center(
-                        child: Text("لا يوجد أبناء مسجلين",
-                            style: TextStyle(color: Colors.black54, fontSize: 16)),
+                        child: Text(
+                          "لا يوجد أبناء مسجلين",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 16,
+                          ),
+                        ),
                       );
                     }
                     final children = snapshot.data!;
                     return ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 8,
+                      ),
                       itemCount: children.length,
                       itemBuilder: (context, index) {
                         return _buildChildCard(context, children[index]);
@@ -128,7 +163,8 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
     }
 
     return FutureBuilder<DocumentSnapshot>(
-      future: FirebaseFirestore.instance.collection('halaqat').doc(halaqaId).get(),
+      future:
+          FirebaseFirestore.instance.collection('halaqat').doc(halaqaId).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return _buildCardLayout(child, 'جاري التحميل...');
@@ -152,9 +188,15 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8),
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
         ],
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(
+          color: Colors.grey.shade200,
+        ),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
@@ -171,13 +213,13 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
             // أيقونة الطفل
             CircleAvatar(
               radius: 30,
-              backgroundColor: const Color(0xFFFF8500).withOpacity(0.15),
+              backgroundColor: orange.withOpacity(0.12),
               child: Text(
                 (child['name'] != null && child['name'].isNotEmpty)
                     ? child['name']![0].toUpperCase()
                     : "?",
                 style: const TextStyle(
-                  color: Color(0xFFFF8500),
+                  color: orange,
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
@@ -200,23 +242,37 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      Icon(Icons.star, color: Colors.amber.shade700, size: 18),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: orange,
+                        size: 18,
+                      ),
                       const SizedBox(width: 4),
                       Text(
                         "${child['totalPoints'] ?? 0} نقطة",
-                        style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 14,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      Icon(Icons.grid_view_rounded, color: Colors.grey.shade600, size: 16),
+                      Icon(
+                        Icons.grid_view_rounded,
+                        color: Colors.grey.shade600,
+                        size: 16,
+                      ),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
                           "الحلقة: $halaqaName",
-                          style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontSize: 13,
+                          ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -228,21 +284,27 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                     children: [
                       Text(
                         "انضم: ${child['joinDate'] != null ? (child['joinDate'] as Timestamp).toDate().toString().split(' ')[0] : 'غير معروف'}",
-                        style: TextStyle(color: Colors.grey.shade500, fontSize: 11),
+                        style: TextStyle(
+                          color: Colors.grey.shade500,
+                          fontSize: 11,
+                        ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: child['isActive'] == true
-                              ? const Color(0xFF555555).withOpacity(0.1)
-                              : Colors.red.withOpacity(0.1),
+                              ? orange.withOpacity(0.12)
+                              : Colors.red.withOpacity(0.10),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
                           child['isActive'] == true ? "نشط" : "متوقف",
                           style: TextStyle(
                             color: child['isActive'] == true
-                                ? const Color(0xFFFF8500)
+                                ? orange
                                 : Colors.red,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
@@ -254,7 +316,11 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 18),
+            const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+              size: 18,
+            ),
           ],
         ),
       ),
