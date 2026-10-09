@@ -736,7 +736,7 @@ class AzkarData {
       'items': [
         {
           'text':
-              'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الهَمِّ وَالحَزَنِ، وَأَعُوذُ بِكَ مِنَ العَجْزِ وَالكَسَلِ، وَأَعُوذُ بِكَ مِنَ الجُبْنِ وَالبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَقَهْرِ الرِّجَالِ.',
+              'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الهَمِّ وَالحَزَنِ، وَأَعُوذُ بِكَ مِنَ العَجْزِ وَالكَسَلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَقَهْرِ الرِّجَالِ.',
           'count': 1,
         },
       ],
@@ -969,7 +969,7 @@ class _HisnElMuslimPageState extends State<HisnElMuslimPage> {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Appconst Color(0xFF555555),
+            Color(0xFF555555),
             AppColors.primary,
           ],
           begin: Alignment.topRight,
@@ -1840,8 +1840,6 @@ class FavoritesPage extends StatelessWidget {
       }
     }
 
-    // صفحة المفضلة الأساسية تعرض جميع الأذكار
-    // ويمكن لاحقاً ربطها بـ SharedPreferences.
     return result.take(20).toList();
   }
 
@@ -1884,7 +1882,7 @@ class FavoritesPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.star_rounded,
                         color: Colors.amber,
                       ),
@@ -2017,14 +2015,14 @@ class _DigitalTasbihPageState
       child: Scaffold(
         backgroundColor: AppColors.background,
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Appconst Color(0xFF555555),
+                const Color(0xFF555555),
                 AppColors.primary,
                 AppColors.background,
               ],
-              stops: [0, .48, 1],
+              stops: const [0, .48, 1],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
