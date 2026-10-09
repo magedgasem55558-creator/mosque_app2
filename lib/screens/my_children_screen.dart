@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'packageg:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../services/firebase_service.dart';
@@ -22,15 +22,14 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Container(
-        // نفس التدرج الرسمي
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF454545), // أخضر غامق
-              Color(0xFFE6E6E6), // أزرق
-              Color(0xFFF5F5F5), // رمادي فاتح
+              Color(0xFF454545),
+              Color(0xFFE6E6E6),
+              Color(0xFFF5F5F5),
             ],
             stops: [0.0, 0.5, 1.0],
           ),
@@ -82,7 +81,7 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                   stream: service.streamMyChildren(user.uid),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator(color: const Color(0xFFFF8500)));
+                      return const Center(child: CircularProgressIndicator(color: Color(0xFFFF8500)));
                     }
                     if (snapshot.hasError) {
                       return Center(
@@ -178,7 +177,7 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                     ? child['name']![0].toUpperCase()
                     : "?",
                 style: const TextStyle(
-                  color: const Color(0xFFFF8500),
+                  color: Color(0xFFFF8500),
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
@@ -243,8 +242,8 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                           child['isActive'] == true ? "نشط" : "متوقف",
                           style: TextStyle(
                             color: child['isActive'] == true
-                                ? const Color(0xFF555555).shade700
-                                : Colors.red.shade700,
+                                ? const Color(0xFFFF8500)
+                                : Colors.red,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
                           ),
