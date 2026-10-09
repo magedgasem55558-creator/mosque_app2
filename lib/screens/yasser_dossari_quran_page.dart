@@ -210,17 +210,17 @@ class QuranData {
 }
 
 // ============================================================================
-// الألوان
+// الألوان المطابقة للـ Home
 // ============================================================================
 
 class QuranTheme {
-  static const Color darkGreen = Color(0xFF063B32);
-  static const Color green = Color(0xFF0B6B57);
-  static const Color emerald = Color(0xFF0F8B70);
-  static const Color gold = Color(0xFFC9A646);
-  static const Color cream = Color(0xFFF8F4E9);
-  static const Color background = Color(0xFFF4F7F5);
-  static const Color text = Color(0xFF17221F);
+  static const Color darkGreen = Color(0xFF454545);
+  static const Color blue = Color(0xFFE6E6E6);
+  static const Color lightBg = Color(0xFFF7F7F7);
+  static const Color teal = Color(0xFFFF8500);
+  static const Color orangeLight = Color(0xFFFF9A2F);
+  static const Color cream = Color(0xFFFFF3E0);
+  static const Color text = Color(0xFF212121);
 }
 
 // ============================================================================
@@ -333,10 +333,6 @@ class _YasserDossariQuranPageState
 
   String _searchQuery = '';
 
-  // 0 = السور
-  // 1 = التنزيلات
-  // 2 = الصفحات
-  // 3 = القراء
   int _selectedTab = 0;
 
   // ==========================================================================
@@ -379,7 +375,6 @@ class _YasserDossariQuranPageState
       setState(() {});
     }
 
-    // تظهر الرسالة بعد تجهيز الصفحة.
     await _showFirstTimeTip();
   }
 
@@ -435,12 +430,12 @@ class _YasserDossariQuranPageState
                 width: 64,
                 height: 64,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF8500).withOpacity(.10),
+                  color: QuranTheme.teal.withOpacity(.10),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
                   Icons.download_for_offline_rounded,
-                  color: const Color(0xFFFF8500),
+                  color: QuranTheme.teal,
                   size: 34,
                 ),
               ),
@@ -455,11 +450,11 @@ class _YasserDossariQuranPageState
                 ),
               ),
               const SizedBox(height: 6),
-              Text(
+              const Text(
                 'ميزة رائعة للاستماع في أي وقت',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: const Color(0xFFD96B00),
+                  color: QuranTheme.teal,
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                 ),
@@ -503,29 +498,29 @@ class _YasserDossariQuranPageState
                   vertical: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF8500).withOpacity(.06),
+                  color: QuranTheme.teal.withOpacity(.06),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: const Color(0xFFFF8500).withOpacity(.12),
+                    color: QuranTheme.teal.withOpacity(.12),
                   ),
                 ),
-                child: Row(
+                child: const Row(
                   crossAxisAlignment:
                       CrossAxisAlignment.start,
                   children: [
                     Icon(
                       Icons.info_outline_rounded,
-                      color: const Color(0xFFF57C00),
+                      color: QuranTheme.teal,
                       size: 19,
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         'يمكنك العثور على جميع السور '
                         'التي تم تنزيلها من قسم التنزيلات، '
                         'مع معرفة اسم القارئ لكل سورة.',
                         style: TextStyle(
-                          color: const Color(0xFFE66700),
+                          color: QuranTheme.darkGreen,
                           fontSize: 12.5,
                           height: 1.4,
                           fontWeight: FontWeight.w500,
@@ -553,7 +548,7 @@ class _YasserDossariQuranPageState
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFF8500),
+                  backgroundColor: QuranTheme.teal,
                   foregroundColor: Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
@@ -598,12 +593,12 @@ class _YasserDossariQuranPageState
             width: 42,
             height: 42,
             decoration: BoxDecoration(
-              color: const Color(0xFFFF8500).withOpacity(.10),
+              color: QuranTheme.teal.withOpacity(.10),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
+            child: const Icon(
               icon,
-              color: const Color(0xFFFF8500),
+              color: QuranTheme.teal,
               size: 22,
             ),
           ),
@@ -887,13 +882,6 @@ class _YasserDossariQuranPageState
     return '${reciter.id}_${surahIndex + 1}';
   }
 
-  String _getFileKeyFromValues(
-    String reciterId,
-    int surahNumber,
-  ) {
-    return '${reciterId}_$surahNumber';
-  }
-
   String _getSurahUrl(
     Reciter reciter,
     int index,
@@ -1028,7 +1016,7 @@ class _YasserDossariQuranPageState
           ),
           action: SnackBarAction(
             label: 'التنزيلات',
-            textColor: QuranTheme.gold,
+            textColor: QuranTheme.teal,
             onPressed: () {
               setState(() {
                 _selectedTab = 1;
@@ -1414,7 +1402,7 @@ class _YasserDossariQuranPageState
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor:
-            QuranTheme.background,
+            QuranTheme.lightBg,
         body: Stack(
           children: [
             _buildBackground(),
@@ -1457,7 +1445,7 @@ class _YasserDossariQuranPageState
   }
 
   // ==========================================================================
-  // الخلفية
+  // الخلفية المطابقة للـ Home
   // ==========================================================================
 
   Widget _buildBackground() {
@@ -1468,14 +1456,14 @@ class _YasserDossariQuranPageState
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF063B32),
-            Color(0xFF0B6B57),
-            Color(0xFFF4F7F5),
+            QuranTheme.darkGreen,
+            QuranTheme.blue,
+            QuranTheme.lightBg,
           ],
           stops: [
-            0,
-            .32,
-            .70,
+            0.0,
+            0.38,
+            0.72,
           ],
         ),
       ),
@@ -1490,54 +1478,62 @@ class _YasserDossariQuranPageState
     return Padding(
       padding:
           const EdgeInsets.fromLTRB(
-        16,
+        18,
         12,
-        16,
+        18,
         8,
       ),
       child: Container(
         padding:
-            const EdgeInsets.all(18),
+            const EdgeInsets.fromLTRB(18, 16, 18, 16),
         decoration:
             BoxDecoration(
           color:
-              Colors.white.withOpacity(.96),
+              Colors.white.withOpacity(.97),
           borderRadius:
-              BorderRadius.circular(28),
+              BorderRadius.circular(26),
           boxShadow: [
             BoxShadow(
               color: Colors.black
-                  .withOpacity(.14),
-              blurRadius: 25,
+                  .withOpacity(.10),
+              blurRadius: 18,
               offset:
-                  const Offset(0, 8),
+                  const Offset(0, 6),
             ),
           ],
         ),
         child: Row(
           children: [
             Container(
-              width: 56,
-              height: 56,
+              width: 52,
+              height: 52,
               decoration:
                   BoxDecoration(
                 gradient:
                     const LinearGradient(
                   colors: [
-                    QuranTheme.gold,
-                    Color(0xFFE6C76B),
+                    QuranTheme.darkGreen,
+                    QuranTheme.teal,
                   ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
                 borderRadius:
                     BorderRadius.circular(
-                  18,
+                  17,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: QuranTheme.darkGreen.withOpacity(0.25),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: const Icon(
                 Icons.menu_book_rounded,
-                color:
-                    QuranTheme.darkGreen,
-                size: 30,
+                color: Colors.white,
+                size: 29,
               ),
             ),
             const SizedBox(width: 14),
@@ -1551,7 +1547,7 @@ class _YasserDossariQuranPageState
                     style: TextStyle(
                       color:
                           QuranTheme.darkGreen,
-                      fontSize: 22,
+                      fontSize: 21,
                       fontWeight:
                           FontWeight.w900,
                     ),
@@ -1569,14 +1565,12 @@ class _YasserDossariQuranPageState
               ),
             ),
             Container(
+              padding: const EdgeInsets.all(4),
               decoration:
                   BoxDecoration(
                 color:
-                    QuranTheme.cream,
-                borderRadius:
-                    BorderRadius.circular(
-                  15,
-                ),
+                    QuranTheme.blue.withOpacity(0.10),
+                shape: BoxShape.circle,
               ),
               child: IconButton(
                 tooltip:
@@ -1593,7 +1587,8 @@ class _YasserDossariQuranPageState
                 icon: const Icon(
                   Icons.bookmark_rounded,
                   color:
-                      QuranTheme.gold,
+                      QuranTheme.teal,
+                  size: 25,
                 ),
               ),
             ),
@@ -1617,16 +1612,23 @@ class _YasserDossariQuranPageState
     return Padding(
       padding:
           const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
+        horizontal: 18,
+        vertical: 6,
       ),
       child: Container(
         decoration:
             BoxDecoration(
           color:
-              Colors.white.withOpacity(.96),
+              Colors.white.withOpacity(.97),
           borderRadius:
               BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: TextField(
           textDirection:
@@ -1649,7 +1651,7 @@ class _YasserDossariQuranPageState
                 const Icon(
               Icons.search_rounded,
               color:
-                  QuranTheme.green,
+                  QuranTheme.teal,
             ),
             suffixIcon:
                 _searchQuery.isNotEmpty
@@ -1673,7 +1675,7 @@ class _YasserDossariQuranPageState
                 const EdgeInsets
                     .symmetric(
               horizontal: 18,
-              vertical: 15,
+              vertical: 14,
             ),
           ),
         ),
@@ -1689,7 +1691,7 @@ class _YasserDossariQuranPageState
     return Padding(
       padding:
           const EdgeInsets.symmetric(
-        horizontal: 16,
+        horizontal: 18,
         vertical: 6,
       ),
       child: Container(
@@ -1698,9 +1700,15 @@ class _YasserDossariQuranPageState
         decoration:
             BoxDecoration(
           color:
-              Colors.white.withOpacity(.90),
+              Colors.white.withOpacity(.97),
           borderRadius:
-              BorderRadius.circular(18),
+              BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+            ),
+          ],
         ),
         child: Row(
           children: [
@@ -1759,7 +1767,7 @@ class _YasserDossariQuranPageState
           ),
           padding:
               const EdgeInsets.symmetric(
-            vertical: 11,
+            vertical: 10,
           ),
           decoration:
               BoxDecoration(
@@ -1767,13 +1775,13 @@ class _YasserDossariQuranPageState
                 ? const LinearGradient(
                     colors: [
                       QuranTheme.darkGreen,
-                      QuranTheme.green,
+                      QuranTheme.teal,
                     ],
                   )
                 : null,
             borderRadius:
                 BorderRadius.circular(
-              14,
+              15,
             ),
           ),
           child: Column(
@@ -1782,7 +1790,7 @@ class _YasserDossariQuranPageState
             children: [
               Icon(
                 icon,
-                size: 17,
+                size: 18,
                 color: selected
                     ? Colors.white
                     : Colors.grey.shade600,
@@ -1798,7 +1806,7 @@ class _YasserDossariQuranPageState
                       selected
                           ? FontWeight.bold
                           : FontWeight.w500,
-                  fontSize: 10,
+                  fontSize: 11,
                 ),
               ),
             ],
@@ -1828,9 +1836,9 @@ class _YasserDossariQuranPageState
           const ValueKey('surahs'),
       padding:
           const EdgeInsets.fromLTRB(
-        16,
+        18,
         10,
-        16,
+        18,
         20,
       ),
       itemCount:
@@ -1879,7 +1887,7 @@ class _YasserDossariQuranPageState
     return Container(
       margin:
           const EdgeInsets.only(
-        bottom: 10,
+        bottom: 12,
       ),
       decoration:
           BoxDecoration(
@@ -1888,16 +1896,17 @@ class _YasserDossariQuranPageState
             BorderRadius.circular(22),
         border: Border.all(
           color: isCurrent
-              ? QuranTheme.gold
-              : Colors.grey.shade200,
+              ? QuranTheme.teal
+              : Colors.white.withOpacity(0.8),
           width:
               isCurrent ? 1.5 : 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black
-                .withOpacity(.045),
-            blurRadius: 15,
+            color: isCurrent
+                ? QuranTheme.teal.withOpacity(0.15)
+                : Colors.black.withOpacity(.05),
+            blurRadius: 14,
             offset:
                 const Offset(0, 5),
           ),
@@ -1935,7 +1944,7 @@ class _YasserDossariQuranPageState
                             QuranTheme.text,
                         fontSize: 16,
                         fontWeight:
-                            FontWeight.w800,
+                            FontWeight.w900,
                       ),
                     ),
                     const SizedBox(
@@ -1951,7 +1960,7 @@ class _YasserDossariQuranPageState
                       style:
                           TextStyle(
                         color: downloaded
-                            ? QuranTheme.green
+                            ? QuranTheme.teal
                             : Colors.grey.shade500,
                         fontSize: 11,
                       ),
@@ -1973,7 +1982,7 @@ class _YasserDossariQuranPageState
                       : Icons
                           .favorite_border_rounded,
                   color: favorite
-                      ? Colors.redAccent
+                      ? QuranTheme.teal
                       : Colors.grey.shade400,
                 ),
               ),
@@ -1988,7 +1997,7 @@ class _YasserDossariQuranPageState
                         _downloadProgress[
                             key],
                     color:
-                        QuranTheme.green,
+                        QuranTheme.teal,
                   ),
                 )
               else if (!downloaded)
@@ -2004,7 +2013,7 @@ class _YasserDossariQuranPageState
                     Icons
                         .download_for_offline_rounded,
                     color:
-                        QuranTheme.green,
+                        QuranTheme.teal,
                   ),
                 )
               else
@@ -2012,7 +2021,7 @@ class _YasserDossariQuranPageState
                   Icons
                       .offline_pin_rounded,
                   color:
-                      QuranTheme.green,
+                      QuranTheme.teal,
                   size: 25,
                 ),
               const SizedBox(
@@ -2027,7 +2036,7 @@ class _YasserDossariQuranPageState
                       const LinearGradient(
                     colors: [
                       QuranTheme.darkGreen,
-                      QuranTheme.green,
+                      QuranTheme.teal,
                     ],
                   ),
                   shape:
@@ -2062,16 +2071,10 @@ class _YasserDossariQuranPageState
       decoration:
           BoxDecoration(
         color: current
-            ? QuranTheme.gold
-            : QuranTheme.cream,
+            ? QuranTheme.teal
+            : QuranTheme.teal.withOpacity(0.12),
         shape:
             BoxShape.circle,
-        border:
-            Border.all(
-          color:
-              QuranTheme.gold
-                  .withOpacity(.45),
-        ),
       ),
       child: Center(
         child: Text(
@@ -2079,8 +2082,8 @@ class _YasserDossariQuranPageState
           style:
               TextStyle(
             color: current
-                ? QuranTheme.darkGreen
-                : QuranTheme.green,
+                ? Colors.white
+                : QuranTheme.teal,
             fontWeight:
                 FontWeight.w900,
           ),
@@ -2114,9 +2117,9 @@ class _YasserDossariQuranPageState
               ListView.builder(
             padding:
                 const EdgeInsets.fromLTRB(
-              16,
+              18,
               8,
-              16,
+              18,
               20,
             ),
             itemCount:
@@ -2139,9 +2142,9 @@ class _YasserDossariQuranPageState
     return Padding(
       padding:
           const EdgeInsets.fromLTRB(
-        16,
+        18,
         10,
-        16,
+        18,
         4,
       ),
       child: Container(
@@ -2154,13 +2157,19 @@ class _YasserDossariQuranPageState
           color: Colors.white,
           borderRadius:
               BorderRadius.circular(
-            18,
+            20,
           ),
           border: Border.all(
             color:
-                QuranTheme.gold
+                QuranTheme.teal
                     .withOpacity(.30),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+            ),
+          ],
         ),
         child: Row(
           children: [
@@ -2170,7 +2179,7 @@ class _YasserDossariQuranPageState
               decoration:
                   BoxDecoration(
                 color:
-                    QuranTheme.cream,
+                    QuranTheme.teal.withOpacity(0.10),
                 borderRadius:
                     BorderRadius.circular(
                   14,
@@ -2181,7 +2190,7 @@ class _YasserDossariQuranPageState
                 Icons
                     .download_done_rounded,
                 color:
-                    QuranTheme.green,
+                    QuranTheme.teal,
               ),
             ),
             const SizedBox(
@@ -2225,7 +2234,7 @@ class _YasserDossariQuranPageState
               decoration:
                   BoxDecoration(
                 color:
-                    QuranTheme.cream,
+                    QuranTheme.teal.withOpacity(0.12),
                 borderRadius:
                     BorderRadius.circular(
                   12,
@@ -2236,7 +2245,7 @@ class _YasserDossariQuranPageState
                 style:
                     const TextStyle(
                   color:
-                      QuranTheme.green,
+                      QuranTheme.teal,
                   fontWeight:
                       FontWeight.w900,
                 ),
@@ -2260,7 +2269,7 @@ class _YasserDossariQuranPageState
     return Container(
       margin:
           const EdgeInsets.only(
-        bottom: 10,
+        bottom: 12,
       ),
       decoration:
           BoxDecoration(
@@ -2271,16 +2280,17 @@ class _YasserDossariQuranPageState
         ),
         border: Border.all(
           color: isCurrent
-              ? QuranTheme.gold
-              : Colors.grey.shade200,
+              ? QuranTheme.teal
+              : Colors.white.withOpacity(0.8),
           width:
               isCurrent ? 1.5 : 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black
-                .withOpacity(.045),
-            blurRadius: 15,
+            color: isCurrent
+                ? QuranTheme.teal.withOpacity(0.15)
+                : Colors.black.withOpacity(.05),
+            blurRadius: 14,
             offset:
                 const Offset(0, 5),
           ),
@@ -2306,17 +2316,9 @@ class _YasserDossariQuranPageState
                 decoration:
                     BoxDecoration(
                   color:
-                      QuranTheme.cream,
+                      QuranTheme.teal.withOpacity(0.12),
                   shape:
                       BoxShape.circle,
-                  border:
-                      Border.all(
-                    color:
-                        QuranTheme.gold
-                            .withOpacity(
-                          .5,
-                        ),
-                  ),
                 ),
                 child: Center(
                   child: Text(
@@ -2324,7 +2326,7 @@ class _YasserDossariQuranPageState
                     style:
                         const TextStyle(
                       color:
-                          QuranTheme.green,
+                          QuranTheme.teal,
                       fontWeight:
                           FontWeight.w900,
                     ),
@@ -2360,7 +2362,7 @@ class _YasserDossariQuranPageState
                               .record_voice_over_rounded,
                           size: 14,
                           color:
-                              QuranTheme.green,
+                              QuranTheme.teal,
                         ),
                         const SizedBox(
                           width: 5,
@@ -2393,7 +2395,7 @@ class _YasserDossariQuranPageState
                               .wifi_off_rounded,
                           size: 13,
                           color:
-                              QuranTheme.green,
+                              QuranTheme.teal,
                         ),
                         SizedBox(
                           width: 4,
@@ -2403,7 +2405,7 @@ class _YasserDossariQuranPageState
                           style:
                               TextStyle(
                             color:
-                                QuranTheme.green,
+                                QuranTheme.teal,
                             fontSize: 10,
                             fontWeight:
                                 FontWeight.w600,
@@ -2438,7 +2440,7 @@ class _YasserDossariQuranPageState
                       const LinearGradient(
                     colors: [
                       QuranTheme.darkGreen,
-                      QuranTheme.green,
+                      QuranTheme.teal,
                     ],
                   ),
                   shape:
@@ -2502,7 +2504,7 @@ class _YasserDossariQuranPageState
                     .download_for_offline_rounded,
                 size: 46,
                 color:
-                    QuranTheme.green,
+                    QuranTheme.teal,
               ),
             ),
             const SizedBox(
@@ -2597,7 +2599,7 @@ class _YasserDossariQuranPageState
                   child:
                       CircularProgressIndicator(
                     color:
-                        QuranTheme.gold,
+                        QuranTheme.teal,
                   ),
                 )
               : _pageAyahs.isEmpty
@@ -2617,9 +2619,9 @@ class _YasserDossariQuranPageState
     return Padding(
       padding:
           const EdgeInsets.fromLTRB(
-        16,
+        18,
         10,
-        16,
+        18,
         6,
       ),
       child: Container(
@@ -2633,13 +2635,19 @@ class _YasserDossariQuranPageState
           color: Colors.white,
           borderRadius:
               BorderRadius.circular(
-            18,
+            20,
           ),
           border: Border.all(
             color:
-                QuranTheme.gold
+                QuranTheme.teal
                     .withOpacity(.35),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+            ),
+          ],
         ),
         child: Row(
           children: [
@@ -2647,7 +2655,7 @@ class _YasserDossariQuranPageState
               Icons
                   .auto_stories_rounded,
               color:
-                  QuranTheme.gold,
+                  QuranTheme.teal,
             ),
             const SizedBox(
               width: 9,
@@ -2675,7 +2683,7 @@ class _YasserDossariQuranPageState
               decoration:
                   BoxDecoration(
                 color:
-                    QuranTheme.cream,
+                    QuranTheme.teal.withOpacity(0.12),
                 borderRadius:
                     BorderRadius.circular(
                   12,
@@ -2686,7 +2694,7 @@ class _YasserDossariQuranPageState
                 style:
                     const TextStyle(
                   color:
-                      QuranTheme.green,
+                      QuranTheme.teal,
                   fontWeight:
                       FontWeight.bold,
                   fontSize: 12,
@@ -2703,23 +2711,23 @@ class _YasserDossariQuranPageState
     return Container(
       margin:
           const EdgeInsets.fromLTRB(
-        16,
+        18,
         5,
-        16,
+        18,
         8,
       ),
       decoration:
           BoxDecoration(
         color:
-            const Color(0xFFFFFCF2),
+            const Color(0xFFFAFAFA),
         borderRadius:
             BorderRadius.circular(
-          18,
+          20,
         ),
         border: Border.all(
           color:
-              QuranTheme.gold
-                  .withOpacity(.45),
+              QuranTheme.teal
+                  .withOpacity(.35),
           width: 1.2,
         ),
         boxShadow: [
@@ -2750,10 +2758,10 @@ class _YasserDossariQuranPageState
               decoration:
                   BoxDecoration(
                 gradient:
-                    const LinearGradient(
+                    LinearGradient(
                   colors: [
                     Colors.transparent,
-                    QuranTheme.gold,
+                    QuranTheme.teal.withOpacity(0.6),
                     Colors.transparent,
                   ],
                 ),
@@ -2771,7 +2779,7 @@ class _YasserDossariQuranPageState
               style:
                   const TextStyle(
                 color:
-                    QuranTheme.gold,
+                    QuranTheme.teal,
                 fontSize: 13,
                 fontWeight:
                     FontWeight.bold,
@@ -2843,7 +2851,7 @@ class _YasserDossariQuranPageState
                               border:
                                   Border.all(
                                 color:
-                                    QuranTheme.gold,
+                                    QuranTheme.teal,
                               ),
                             ),
                             child:
@@ -2854,7 +2862,7 @@ class _YasserDossariQuranPageState
                                 style:
                                     const TextStyle(
                                   color:
-                                      QuranTheme.green,
+                                      QuranTheme.teal,
                                   fontSize:
                                       9,
                                   fontWeight:
@@ -2878,12 +2886,12 @@ class _YasserDossariQuranPageState
                   double.infinity,
               height: 3,
               decoration:
-                  const BoxDecoration(
+                  BoxDecoration(
                 gradient:
                     LinearGradient(
                   colors: [
                     Colors.transparent,
-                    QuranTheme.gold,
+                    QuranTheme.teal.withOpacity(0.6),
                     Colors.transparent,
                   ],
                 ),
@@ -2899,9 +2907,9 @@ class _YasserDossariQuranPageState
     return Padding(
       padding:
           const EdgeInsets.fromLTRB(
-        16,
+        18,
         4,
-        16,
+        18,
         12,
       ),
       child: Row(
@@ -2995,7 +3003,7 @@ class _YasserDossariQuranPageState
         child:
             CircularProgressIndicator(
           color:
-              QuranTheme.gold,
+              QuranTheme.teal,
         ),
       );
     }
@@ -3015,9 +3023,9 @@ class _YasserDossariQuranPageState
       ),
       padding:
           const EdgeInsets.fromLTRB(
-        16,
+        18,
         10,
-        16,
+        18,
         20,
       ),
       itemCount:
@@ -3046,7 +3054,7 @@ class _YasserDossariQuranPageState
     return Container(
       margin:
           const EdgeInsets.only(
-        bottom: 10,
+        bottom: 12,
       ),
       decoration:
           BoxDecoration(
@@ -3058,16 +3066,17 @@ class _YasserDossariQuranPageState
         ),
         border: Border.all(
           color: selected
-              ? QuranTheme.gold
-              : Colors.grey.shade200,
+              ? QuranTheme.teal
+              : Colors.white.withOpacity(0.8),
           width:
               selected ? 1.5 : 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black
-                .withOpacity(.04),
-            blurRadius: 15,
+            color: selected
+                ? QuranTheme.teal.withOpacity(0.15)
+                : Colors.black.withOpacity(.04),
+            blurRadius: 14,
           ),
         ],
       ),
@@ -3117,10 +3126,9 @@ class _YasserDossariQuranPageState
                           ? const LinearGradient(
                               colors: [
                                 QuranTheme
-                                    .gold,
-                                Color(
-                                  0xFFE6C76B,
-                                ),
+                                    .teal,
+                                QuranTheme
+                                    .orangeLight,
                               ],
                             )
                           : const LinearGradient(
@@ -3128,7 +3136,7 @@ class _YasserDossariQuranPageState
                                 QuranTheme
                                     .darkGreen,
                                 QuranTheme
-                                    .green,
+                                    .teal,
                               ],
                             ),
                   shape:
@@ -3137,10 +3145,7 @@ class _YasserDossariQuranPageState
                 child: Icon(
                   Icons
                       .record_voice_over_rounded,
-                  color: selected
-                      ? QuranTheme
-                          .darkGreen
-                      : Colors.white,
+                  color: Colors.white,
                   size: 26,
                 ),
               ),
@@ -3190,7 +3195,7 @@ class _YasserDossariQuranPageState
                   decoration:
                       BoxDecoration(
                     color:
-                        QuranTheme.cream,
+                        QuranTheme.teal.withOpacity(0.12),
                     borderRadius:
                         BorderRadius.circular(
                       12,
@@ -3202,7 +3207,7 @@ class _YasserDossariQuranPageState
                     style:
                         TextStyle(
                       color:
-                          QuranTheme.green,
+                          QuranTheme.teal,
                       fontSize: 11,
                       fontWeight:
                           FontWeight.bold,
@@ -3261,9 +3266,9 @@ class _YasserDossariQuranPageState
     return Container(
       margin:
           const EdgeInsets.fromLTRB(
-        12,
+        14,
         0,
-        12,
+        14,
         10,
       ),
       padding:
@@ -3280,7 +3285,7 @@ class _YasserDossariQuranPageState
               Alignment.bottomLeft,
           colors: [
             QuranTheme.darkGreen,
-            QuranTheme.green,
+            QuranTheme.teal,
           ],
         ),
         borderRadius:
@@ -3318,7 +3323,7 @@ class _YasserDossariQuranPageState
                   Icons
                       .graphic_eq_rounded,
                   color:
-                      QuranTheme.gold,
+                      Colors.white,
                 ),
               ),
               const SizedBox(
@@ -3372,7 +3377,7 @@ class _YasserDossariQuranPageState
                             Icons
                                 .wifi_off_rounded,
                             color:
-                                QuranTheme.gold,
+                                Colors.white,
                             size: 13,
                           ),
                         ],
@@ -3416,13 +3421,13 @@ class _YasserDossariQuranPageState
               context,
             ).copyWith(
               activeTrackColor:
-                  QuranTheme.gold,
+                  Colors.white,
               inactiveTrackColor:
                   Colors.white24,
               thumbColor:
-                  QuranTheme.gold,
+                  Colors.white,
               overlayColor:
-                  QuranTheme.gold
+                  Colors.white
                       .withOpacity(.15),
               trackHeight: 4,
             ),
@@ -3530,15 +3535,14 @@ class _YasserDossariQuranPageState
                   decoration:
                       BoxDecoration(
                     color:
-                        QuranTheme.gold,
+                        Colors.white,
                     shape:
                         BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: QuranTheme
-                            .gold
+                        color: Colors.black
                             .withOpacity(
-                          .30,
+                          .15,
                         ),
                         blurRadius: 15,
                       ),
@@ -3552,7 +3556,7 @@ class _YasserDossariQuranPageState
                         : Icons
                             .play_arrow_rounded,
                     color:
-                        QuranTheme.darkGreen,
+                        QuranTheme.teal,
                     size: 35,
                   ),
                 ),
@@ -3640,7 +3644,7 @@ class _YasserDossariQuranPageState
               icon,
               size: 38,
               color:
-                  QuranTheme.green,
+                  QuranTheme.teal,
             ),
           ),
           const SizedBox(
