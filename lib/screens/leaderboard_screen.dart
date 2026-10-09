@@ -8,69 +8,73 @@ class LeaderboardScreen extends StatelessWidget {
   // الألوان الأساسية للتطبيق
   // ============================================================
 
-  static const Color primaryBlue = Color(0xFF1A237E);
-  static const Color blue = Color(0xFF1565C0);
-  static const Color lightBlue = Color(0xFFE6E6E6);
+  static const Color darkGrey = Color(0xFF454545);
+  static const Color lightGrey = Color(0xFFE6E6E6);
+  static const Color background = Color(0xFFF7F7F7);
+  static const Color orange = Color(0xFFFF8500);
 
   static const Color gold = Color(0xFFFF8500);
   static const Color silver = Color(0xFF78909C);
-  static const Color bronze = Color(0xFFEF6C00);
+  static const Color bronze = Color(0xFFD87D0A);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F9FC),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeader(),
+      backgroundColor: background,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              darkGrey,
+              lightGrey,
+              background,
+            ],
+            stops: [
+              0.0,
+              0.35,
+              0.70,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              _buildHeader(),
+              const SizedBox(height: 8),
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('students')
+                      .orderBy(
+                        'totalPoints',
+                        descending: true,
+                      )
+                      .limit(3)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return _buildErrorState();
+                    }
 
-            const SizedBox(height: 8),
+                    if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return _buildLoadingState();
+                    }
 
-            Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('students')
-                    .orderBy(
-                      'totalPoints',
-                      descending: true,
-                    )
-                    .limit(3)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  // ------------------------------------------------
-                  // خطأ
-                  // ------------------------------------------------
+                    final students = snapshot.data?.docs ?? [];
 
-                  if (snapshot.hasError) {
-                    return _buildErrorState();
-                  }
+                    if (students.isEmpty) {
+                      return _buildEmptyState();
+                    }
 
-                  // ------------------------------------------------
-                  // تحميل
-                  // ------------------------------------------------
-
-                  if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return _buildLoadingState();
-                  }
-
-                  // ------------------------------------------------
-                  // البيانات
-                  // ------------------------------------------------
-
-                  final students =
-                      snapshot.data?.docs ?? [];
-
-                  if (students.isEmpty) {
-                    return _buildEmptyState();
-                  }
-
-                  return _buildLeaderboard(students);
-                },
+                    return _buildLeaderboard(students);
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -100,13 +104,13 @@ class LeaderboardScreen extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  primaryBlue,
-                  blue,
+                  darkGrey,
+                  orange,
                 ],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: primaryBlue.withOpacity(0.22),
+                  color: Colors.black.withOpacity(0.18),
                   blurRadius: 18,
                   offset: const Offset(0, 8),
                 ),
@@ -124,7 +128,7 @@ class LeaderboardScreen extends StatelessWidget {
           const Text(
             'الطلاب المتصدرون',
             style: TextStyle(
-              color: primaryBlue,
+              color: Colors.white,
               fontSize: 25,
               fontWeight: FontWeight.w900,
               letterSpacing: -0.3,
@@ -133,10 +137,10 @@ class LeaderboardScreen extends StatelessWidget {
 
           const SizedBox(height: 4),
 
-          Text(
+          const Text(
             'أفضل 3 طلاب لهذا اليوم',
             style: TextStyle(
-              color: Colors.grey.shade600,
+              color: Colors.white70,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -152,8 +156,8 @@ class LeaderboardScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               gradient: const LinearGradient(
                 colors: [
-                  lightBlue,
-                  primaryBlue,
+                  lightGrey,
+                  orange,
                 ],
               ),
             ),
@@ -184,15 +188,11 @@ class LeaderboardScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 18),
 
-              // --------------------------------------------------
               // منصة المتصدرين
-              // --------------------------------------------------
-
               SizedBox(
                 height: 510,
                 child: Row(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     // المركز الثاني
                     if (students.length > 1)
@@ -240,10 +240,7 @@ class LeaderboardScreen extends StatelessWidget {
 
               const SizedBox(height: 22),
 
-              // --------------------------------------------------
               // رسالة تشجيعية
-              // --------------------------------------------------
-
               _buildMotivationCard(),
             ],
           ),
@@ -263,30 +260,23 @@ class LeaderboardScreen extends StatelessWidget {
     required double podiumHeight,
     bool isWinner = false,
   }) {
-    final data =
-        doc.data() as Map<String, dynamic>;
+    final data = doc.data() as Map<String, dynamic>;
 
-    final String name =
-        (data['name'] ?? 'طالب').toString();
+    final String name = (data['name'] ?? 'طالب').toString();
 
-    final dynamic rawPoints =
-        data['totalPoints'] ?? 0;
+    final dynamic rawPoints = data['totalPoints'] ?? 0;
 
-    final int points =
-        rawPoints is num
-            ? rawPoints.toInt()
-            : int.tryParse(
-                  rawPoints.toString(),
-                ) ??
-                0;
+    final int points = rawPoints is num
+        ? rawPoints.toInt()
+        : int.tryParse(
+              rawPoints.toString(),
+            ) ??
+            0;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // ========================================================
         // التاج للمركز الأول
-        // ========================================================
-
         if (isWinner)
           const Padding(
             padding: EdgeInsets.only(bottom: 3),
@@ -297,33 +287,26 @@ class LeaderboardScreen extends StatelessWidget {
             ),
           ),
 
-        if (!isWinner)
-          const SizedBox(height: 38),
+        if (!isWinner) const SizedBox(height: 38),
 
-        // ========================================================
         // دائرة المركز
-        // ========================================================
-
         Container(
           width: isWinner ? 88 : 76,
           height: isWinner ? 88 : 76,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
                 color,
-                color.withOpacity(0.72),
+                color.withOpacity(0.75),
               ],
             ),
-
             border: Border.all(
               color: Colors.white,
               width: 4,
             ),
-
             boxShadow: [
               BoxShadow(
                 color: color.withOpacity(0.35),
@@ -332,7 +315,6 @@ class LeaderboardScreen extends StatelessWidget {
               ),
             ],
           ),
-
           child: Center(
             child: Text(
               '$rank',
@@ -347,10 +329,7 @@ class LeaderboardScreen extends StatelessWidget {
 
         const SizedBox(height: 12),
 
-        // ========================================================
         // بطاقة اسم الطالب
-        // ========================================================
-
         Container(
           width: double.infinity,
           margin: const EdgeInsets.symmetric(
@@ -377,14 +356,13 @@ class LeaderboardScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              // الاسم
               Text(
                 name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: primaryBlue,
+                  color: darkGrey,
                   fontSize: isWinner ? 16 : 14,
                   fontWeight: FontWeight.w900,
                   height: 1.25,
@@ -393,10 +371,8 @@ class LeaderboardScreen extends StatelessWidget {
 
               const SizedBox(height: 5),
 
-              // النقاط
               Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.stars_rounded,
@@ -423,10 +399,7 @@ class LeaderboardScreen extends StatelessWidget {
 
         const SizedBox(height: 8),
 
-        // ========================================================
         // المنصة
-        // ========================================================
-
         Container(
           height: podiumHeight,
           width: double.infinity,
@@ -434,20 +407,17 @@ class LeaderboardScreen extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(18),
             ),
-
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                color.withOpacity(0.30),
-                color.withOpacity(0.08),
+                color.withOpacity(0.35),
+                color.withOpacity(0.10),
               ],
             ),
-
             border: Border.all(
-              color: color.withOpacity(0.12),
+              color: color.withOpacity(0.18),
             ),
-
             boxShadow: [
               BoxShadow(
                 color: color.withOpacity(0.08),
@@ -456,18 +426,16 @@ class LeaderboardScreen extends StatelessWidget {
               ),
             ],
           ),
-
           child: Column(
             children: [
               const SizedBox(height: 15),
 
-              // رقم المركز على المنصة
               Container(
                 width: 34,
                 height: 34,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: color.withOpacity(0.18),
+                  color: Colors.white.withOpacity(0.85),
                 ),
                 alignment: Alignment.center,
                 child: Text(
@@ -500,18 +468,18 @@ class LeaderboardScreen extends StatelessWidget {
         vertical: 16,
       ),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [
-            primaryBlue.withOpacity(0.96),
-            blue.withOpacity(0.92),
+            darkGrey,
+            orange,
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: primaryBlue.withOpacity(0.18),
+            color: Colors.black.withOpacity(0.15),
             blurRadius: 18,
             offset: const Offset(0, 8),
           ),
@@ -523,7 +491,7 @@ class LeaderboardScreen extends StatelessWidget {
             width: 46,
             height: 46,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.14),
+              color: Colors.white.withOpacity(0.16),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -537,8 +505,7 @@ class LeaderboardScreen extends StatelessWidget {
 
           const Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'واصل التقدم!',
@@ -572,21 +539,20 @@ class LeaderboardScreen extends StatelessWidget {
   Widget _buildLoadingState() {
     return Center(
       child: Column(
-        mainAxisAlignment:
-            MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: 72,
             height: 72,
             decoration: BoxDecoration(
-              color: primaryBlue.withOpacity(0.08),
+              color: orange.withOpacity(0.12),
               shape: BoxShape.circle,
             ),
             child: const Padding(
               padding: EdgeInsets.all(20),
               child: CircularProgressIndicator(
                 strokeWidth: 3,
-                color: primaryBlue,
+                color: orange,
               ),
             ),
           ),
@@ -596,7 +562,7 @@ class LeaderboardScreen extends StatelessWidget {
           const Text(
             'جاري تحميل المتصدرين...',
             style: TextStyle(
-              color: primaryBlue,
+              color: Colors.white,
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
@@ -615,20 +581,19 @@ class LeaderboardScreen extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               width: 90,
               height: 90,
               decoration: BoxDecoration(
-                color: primaryBlue.withOpacity(0.08),
+                color: orange.withOpacity(0.12),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
                 Icons.emoji_events_outlined,
                 size: 45,
-                color: primaryBlue,
+                color: orange,
               ),
             ),
 
@@ -638,7 +603,7 @@ class LeaderboardScreen extends StatelessWidget {
               'لا يوجد متصدرون حتى الآن',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: primaryBlue,
+                color: Colors.black87,
                 fontSize: 18,
                 fontWeight: FontWeight.w900,
               ),
@@ -669,13 +634,12 @@ class LeaderboardScreen extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.cloud_off_rounded,
               size: 65,
-              color: primaryBlue,
+              color: Colors.redAccent,
             ),
 
             const SizedBox(height: 16),
@@ -684,7 +648,7 @@ class LeaderboardScreen extends StatelessWidget {
               'تعذر تحميل قائمة المتصدرين',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: primaryBlue,
+                color: Colors.black87,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
