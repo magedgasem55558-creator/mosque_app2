@@ -28,8 +28,8 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF2E7D32), // أخضر غامق
-              Color(0xFF42A5F5), // أزرق
+              Color(0xFF454545), // أخضر غامق
+              Color(0xFFE6E6E6), // أزرق
               Color(0xFFF5F5F5), // رمادي فاتح
             ],
             stops: [0.0, 0.5, 1.0],
@@ -82,7 +82,7 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                   stream: service.streamMyChildren(user.uid),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator(color: Colors.teal));
+                      return const Center(child: CircularProgressIndicator(color: const Color(0xFFFF8500)));
                     }
                     if (snapshot.hasError) {
                       return Center(
@@ -172,13 +172,13 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
             // أيقونة الطفل
             CircleAvatar(
               radius: 30,
-              backgroundColor: Colors.teal.withOpacity(0.15),
+              backgroundColor: const Color(0xFFFF8500).withOpacity(0.15),
               child: Text(
                 (child['name'] != null && child['name'].isNotEmpty)
                     ? child['name']![0].toUpperCase()
                     : "?",
                 style: const TextStyle(
-                  color: Colors.teal,
+                  color: const Color(0xFFFF8500),
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
@@ -235,7 +235,7 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
                           color: child['isActive'] == true
-                              ? Colors.green.withOpacity(0.1)
+                              ? const Color(0xFF555555).withOpacity(0.1)
                               : Colors.red.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -243,7 +243,7 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
                           child['isActive'] == true ? "نشط" : "متوقف",
                           style: TextStyle(
                             color: child['isActive'] == true
-                                ? Colors.green.shade700
+                                ? const Color(0xFF555555).shade700
                                 : Colors.red.shade700,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,

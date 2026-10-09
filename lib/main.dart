@@ -37,12 +37,16 @@ child: child ?? const SizedBox.shrink(),
 },
 theme: ThemeData(
 useMaterial3: true,
-brightness: Brightness.dark,
-colorSchemeSeed: Colors.tealAccent,
+brightness: Brightness.light,
+      scaffoldBackgroundColor: const Color(0xFFF7F7F7),
+colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFFF8500), brightness: Brightness.light),
 fontFamily: 'Cairo',
 appBarTheme: const AppBarTheme(
 centerTitle: true,
 elevation: 0,
+centerTitle: true,
+backgroundColor: const Color(0xFFFFFFFF),
+foregroundColor: const Color(0xFF333333),
 ),
 ),
 // جعل الصفحة الرئيسية هي HomeScreen بشكل مباشر
