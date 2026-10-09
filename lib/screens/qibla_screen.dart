@@ -943,14 +943,14 @@ class _QiblaScreenState extends State<QiblaScreen> {
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: const Color(0xFF555555).shade50,
+          color: const Color(0xFFF5F5F5),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
           'القبلة أمامك مباشرة 🕋',
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: const Color(0xFF555555).shade800,
+            color: const Color(0xFF333333),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -966,7 +966,7 @@ class _QiblaScreenState extends State<QiblaScreen> {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFFF8500).shade50,
+        color: const Color(0xFFFFF3E0),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -974,7 +974,7 @@ class _QiblaScreenState extends State<QiblaScreen> {
         '${difference.abs().toStringAsFixed(1)}°',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: const Color(0xFFFF8500).shade800,
+          color: const Color(0xFFE66700),
           fontWeight: FontWeight.bold,
         ),
       ),
