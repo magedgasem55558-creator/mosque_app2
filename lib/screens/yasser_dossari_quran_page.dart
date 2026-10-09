@@ -596,7 +596,7 @@ class _YasserDossariQuranPageState
               color: QuranTheme.teal.withOpacity(.10),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(
+            child: Icon(
               icon,
               color: QuranTheme.teal,
               size: 22,
