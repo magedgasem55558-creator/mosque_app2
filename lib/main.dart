@@ -44,7 +44,6 @@ fontFamily: 'Cairo',
 appBarTheme: const AppBarTheme(
 centerTitle: true,
 elevation: 0,
-centerTitle: true,
 backgroundColor: const Color(0xFFFFFFFF),
 foregroundColor: const Color(0xFF333333),
 ),
