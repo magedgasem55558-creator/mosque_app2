@@ -11,8 +11,7 @@ class ChildDetailsScreen extends StatefulWidget {
   });
 
   @override
-  State<ChildDetailsScreen> createState() =>
-      _ChildDetailsScreenState();
+  State<ChildDetailsScreen> createState() => _ChildDetailsScreenState();
 }
 
 class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
@@ -20,9 +19,10 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   // الألوان الرسمية
   // ============================================================
 
-  static const Color primaryGreen = Color(0xFF454545);
-  static const Color primaryBlue = Color(0xFFE6E6E6);
+  static const Color darkGrey = Color(0xFF454545);
+  static const Color lightGrey = Color(0xFFE6E6E6);
   static const Color background = Color(0xFFF7F7F7);
+  static const Color orange = Color(0xFFFF8500);
 
   final TextEditingController _parentMessageController =
       TextEditingController();
@@ -35,7 +35,6 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   @override
   void initState() {
     super.initState();
-
     _loadAdmin();
   }
 
@@ -86,8 +85,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String studentId =
-        widget.child['id']?.toString() ?? '';
+    final String studentId = widget.child['id']?.toString() ?? '';
 
     final String studentName =
         widget.child['name']?.toString().trim().isNotEmpty == true
@@ -104,8 +102,8 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                primaryGreen,
-                primaryBlue,
+                darkGrey,
+                lightGrey,
                 background,
               ],
               stops: [
@@ -122,19 +120,13 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
                   context,
                   studentName,
                 ),
-
                 const SizedBox(height: 12),
-
                 _buildStudentCard(
                   studentName,
                 ),
-
                 const SizedBox(height: 16),
-
                 _buildTabs(),
-
                 const SizedBox(height: 8),
-
                 Expanded(
                   child: studentId.isEmpty
                       ? _buildErrorState()
@@ -191,13 +183,10 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               ),
             ),
           ),
-
           const SizedBox(width: 14),
-
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'متابعة الطالب',
@@ -207,9 +196,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-
                 const SizedBox(height: 3),
-
                 Text(
                   studentName,
                   maxLines: 1,
@@ -223,7 +210,6 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               ],
             ),
           ),
-
           Container(
             width: 46,
             height: 46,
@@ -262,7 +248,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.12),
+            color: Colors.black.withOpacity(0.10),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -276,12 +262,11 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  primaryGreen,
-                  primaryBlue,
+                  darkGrey,
+                  orange,
                 ],
               ),
-              borderRadius:
-                  BorderRadius.circular(19),
+              borderRadius: BorderRadius.circular(19),
             ),
             child: const Icon(
               Icons.person_rounded,
@@ -289,13 +274,10 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               size: 34,
             ),
           ),
-
           const SizedBox(width: 15),
-
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'الطالب',
@@ -304,9 +286,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
                     fontSize: 12,
                   ),
                 ),
-
                 const SizedBox(height: 4),
-
                 Text(
                   studentName,
                   maxLines: 1,
@@ -317,38 +297,31 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
                 const SizedBox(height: 7),
-
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 9,
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color:
-                        primaryGreen.withOpacity(0.09),
-                    borderRadius:
-                        BorderRadius.circular(20),
+                    color: orange.withOpacity(0.12),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Row(
-                    mainAxisSize:
-                        MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.auto_stories_rounded,
-                        color: primaryGreen,
+                        color: orange,
                         size: 15,
                       ),
                       SizedBox(width: 5),
                       Text(
                         'حلقة القرآن',
                         style: TextStyle(
-                          color: primaryGreen,
+                          color: orange,
                           fontSize: 11,
-                          fontWeight:
-                              FontWeight.bold,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -357,17 +330,15 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               ],
             ),
           ),
-
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color:
-                  primaryBlue.withOpacity(0.08),
+              color: orange.withOpacity(0.10),
               shape: BoxShape.circle,
             ),
             child: const Icon(
               Icons.verified_rounded,
-              color: primaryBlue,
+              color: orange,
               size: 25,
             ),
           ),
@@ -401,21 +372,17 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
         indicator: BoxDecoration(
           gradient: const LinearGradient(
             colors: [
-              primaryGreen,
-              primaryBlue,
+              darkGrey,
+              orange,
             ],
           ),
-          borderRadius:
-              BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16),
         ),
-        indicatorSize:
-            TabBarIndicatorSize.tab,
-        indicatorPadding:
-            const EdgeInsets.all(5),
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicatorPadding: const EdgeInsets.all(5),
         dividerColor: Colors.transparent,
         labelColor: Colors.white,
-        unselectedLabelColor:
-            Colors.grey.shade600,
+        unselectedLabelColor: Colors.grey.shade600,
         tabs: const [
           Tab(
             icon: Icon(
@@ -443,10 +410,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   Widget _buildDailyReport(
     String studentId,
   ) {
-    final String today =
-        DateTime.now()
-            .toIso8601String()
-            .split('T')[0];
+    final String today = DateTime.now().toIso8601String().split('T')[0];
 
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
@@ -461,37 +425,27 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
           )
           .snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return _buildLoading();
         }
 
         if (snapshot.hasError) {
           return _buildEmptyState(
-            icon:
-                Icons.error_outline_rounded,
-            title:
-                'تعذر تحميل البيانات',
-            subtitle:
-                'حدث خطأ أثناء جلب سجل الطالب.',
+            icon: Icons.error_outline_rounded,
+            title: 'تعذر تحميل البيانات',
+            subtitle: 'حدث خطأ أثناء جلب سجل الطالب.',
           );
         }
 
-        if (!snapshot.hasData ||
-            snapshot.data!.docs.isEmpty) {
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return _buildEmptyState(
-            icon:
-                Icons.event_available_rounded,
-            title:
-                'لا يوجد سجل اليوم',
-            subtitle:
-                'لم يتم تسجيل أي حالة للطالب بتاريخ\n$today',
+            icon: Icons.event_available_rounded,
+            title: 'لا يوجد سجل اليوم',
+            subtitle: 'لم يتم تسجيل أي حالة للطالب بتاريخ\n$today',
           );
         }
 
-        final List<DocumentSnapshot> docs =
-            [...snapshot.data!.docs];
-
+        final List<DocumentSnapshot> docs = [...snapshot.data!.docs];
         _sortRecordsNewestFirst(docs);
 
         return _buildRecordList(docs);
@@ -515,37 +469,27 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
           )
           .snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return _buildLoading();
         }
 
         if (snapshot.hasError) {
           return _buildEmptyState(
-            icon:
-                Icons.error_outline_rounded,
-            title:
-                'تعذر تحميل السجل',
-            subtitle:
-                'حدث خطأ أثناء جلب البيانات.',
+            icon: Icons.error_outline_rounded,
+            title: 'تعذر تحميل السجل',
+            subtitle: 'حدث خطأ أثناء جلب البيانات.',
           );
         }
 
-        if (!snapshot.hasData ||
-            snapshot.data!.docs.isEmpty) {
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return _buildEmptyState(
-            icon:
-                Icons.history_rounded,
-            title:
-                'لا توجد سجلات سابقة',
-            subtitle:
-                'ستظهر هنا جميع حالات وإنجازات الطالب.',
+            icon: Icons.history_rounded,
+            title: 'لا توجد سجلات سابقة',
+            subtitle: 'ستظهر هنا جميع حالات وإنجازات الطالب.',
           );
         }
 
-        final List<DocumentSnapshot> docs =
-            [...snapshot.data!.docs];
-
+        final List<DocumentSnapshot> docs = [...snapshot.data!.docs];
         _sortRecordsNewestFirst(docs);
 
         return _buildRecordList(docs);
@@ -562,20 +506,12 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   ) {
     docs.sort((a, b) {
       final Map<String, dynamic> dataA =
-          (a.data()
-                  as Map<String, dynamic>?) ??
-              {};
-
+          (a.data() as Map<String, dynamic>?) ?? {};
       final Map<String, dynamic> dataB =
-          (b.data()
-                  as Map<String, dynamic>?) ??
-              {};
+          (b.data() as Map<String, dynamic>?) ?? {};
 
-      final DateTime dateA =
-          _recordDateTime(dataA);
-
-      final DateTime dateB =
-          _recordDateTime(dataB);
+      final DateTime dateA = _recordDateTime(dataA);
+      final DateTime dateB = _recordDateTime(dataB);
 
       return dateB.compareTo(dateA);
     });
@@ -584,18 +520,14 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   DateTime _recordDateTime(
     Map<String, dynamic> data,
   ) {
-    final dynamic createdAt =
-        data['createdAt'];
+    final dynamic createdAt = data['createdAt'];
 
     if (createdAt is Timestamp) {
       return createdAt.toDate();
     }
 
-    final String date =
-        data['date']?.toString() ?? '';
-
-    final DateTime? parsed =
-        DateTime.tryParse(date);
+    final String date = data['date']?.toString() ?? '';
+    final DateTime? parsed = DateTime.tryParse(date);
 
     return parsed ?? DateTime(1900);
   }
@@ -611,59 +543,30 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
       return const SizedBox.shrink();
     }
 
-    // ==========================================================
-    // نأخذ أول سجل فقط للحصول على بيانات الطالب والحلقة
-    // للمحادثة.
-    //
-    // المحادثة تظهر مرة واحدة فقط.
-    // ==========================================================
-
     final Map<String, dynamic> firstRecord =
-        (docs.first.data()
-                as Map<String, dynamic>?) ??
-            {};
+        (docs.first.data() as Map<String, dynamic>?) ?? {};
 
     return ListView(
-      physics:
-          const BouncingScrollPhysics(),
-      padding:
-          const EdgeInsets.fromLTRB(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.fromLTRB(
         16,
         12,
         16,
         40,
       ),
       children: [
-        // ======================================================
-        // 💬 المحادثة
-        // ======================================================
-
         _buildChatSection(
           firstRecord,
         ),
-
         const SizedBox(height: 20),
-
-        // ======================================================
-        // 📖 عنوان الإنجازات
-        // ======================================================
-
         _buildRecordsHeader(
           docs.length,
         ),
-
         const SizedBox(height: 12),
-
-        // ======================================================
-        // 📚 جميع الإنجازات
-        // ======================================================
-
         ...docs.map(
           (doc) {
             final Map<String, dynamic> data =
-                (doc.data()
-                        as Map<String, dynamic>?) ??
-                    {};
+                (doc.data() as Map<String, dynamic>?) ?? {};
 
             return _buildRecordCard(
               context,
@@ -683,23 +586,18 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
     int count,
   ) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 15,
         vertical: 13,
       ),
       decoration: BoxDecoration(
-        color:
-            Colors.white.withOpacity(0.96),
-        borderRadius:
-            BorderRadius.circular(17),
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(17),
         boxShadow: [
           BoxShadow(
-            color:
-                Colors.black.withOpacity(0.06),
+            color: Colors.black.withOpacity(0.06),
             blurRadius: 12,
-            offset:
-                const Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -709,15 +607,13 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              gradient:
-                  const LinearGradient(
+              gradient: const LinearGradient(
                 colors: [
-                  primaryGreen,
-                  primaryBlue,
+                  darkGrey,
+                  orange,
                 ],
               ),
-              borderRadius:
-                  BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: const Icon(
               Icons.auto_stories_rounded,
@@ -725,21 +621,17 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               size: 21,
             ),
           ),
-
           const SizedBox(width: 11),
-
           const Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'إنجازات الطالب',
                   style: TextStyle(
                     color: Colors.black87,
                     fontSize: 15,
-                    fontWeight:
-                        FontWeight.bold,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 3),
@@ -753,27 +645,21 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               ],
             ),
           ),
-
           Container(
-            padding:
-                const EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 6,
             ),
             decoration: BoxDecoration(
-              color:
-                  primaryGreen.withOpacity(0.09),
-              borderRadius:
-                  BorderRadius.circular(12),
+              color: orange.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
               '$count',
-              style:
-                  const TextStyle(
-                color: primaryGreen,
+              style: const TextStyle(
+                color: orange,
                 fontSize: 12,
-                fontWeight:
-                    FontWeight.bold,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -790,73 +676,47 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
     BuildContext context,
     Map<String, dynamic> data,
   ) {
-    final String status =
-        data['status']?.toString() ??
-            'حاضر';
+    final String status = data['status']?.toString() ?? 'حاضر';
 
-    final bool isAbsent =
-        status == 'غائب';
-
-    final bool isVacation =
-        status == 'إجازة';
-
-    final bool isExcused =
-        status == 'مستأذن';
-
-    final bool isReviewStatus =
-        status == 'مراجعة';
+    final bool isAbsent = status == 'غائب';
+    final bool isVacation = status == 'إجازة';
+    final bool isExcused = status == 'مستأذن';
+    final bool isReviewStatus = status == 'مراجعة';
 
     final bool isSpecialStatus =
-        isAbsent ||
-        isVacation ||
-        isExcused ||
-        isReviewStatus;
+        isAbsent || isVacation || isExcused || isReviewStatus;
 
-    final String surah =
-        data['surah']?.toString() ??
-            'غير محددة';
-
-    final String date =
-        data['date']?.toString() ?? '';
-
-    final String grade =
-        data['grade']?.toString() ?? '';
+    final String surah = data['surah']?.toString() ?? 'غير محددة';
+    final String date = data['date']?.toString() ?? '';
+    final String grade = data['grade']?.toString() ?? '';
 
     Color statusColor;
     IconData statusIcon;
 
     if (isAbsent) {
       statusColor = Colors.red;
-      statusIcon =
-          Icons.person_off_rounded;
+      statusIcon = Icons.person_off_rounded;
     } else if (isVacation) {
-      statusColor = Colors.orange;
-      statusIcon =
-          Icons.beach_access_rounded;
+      statusColor = orange;
+      statusIcon = Icons.beach_access_rounded;
     } else if (isExcused) {
-      statusColor =
-          Colors.deepPurple;
-      statusIcon =
-          Icons.event_available_rounded;
+      statusColor = Colors.deepPurple;
+      statusIcon = Icons.event_available_rounded;
     } else if (isReviewStatus) {
-      statusColor = const Color(0xFFBDBDBD);
-      statusIcon =
-          Icons.fact_check_rounded;
+      statusColor = darkGrey;
+      statusIcon = Icons.fact_check_rounded;
     } else {
-      statusColor = primaryGreen;
-      statusIcon =
-          Icons.menu_book_rounded;
+      statusColor = darkGrey;
+      statusIcon = Icons.menu_book_rounded;
     }
 
     return Container(
-      margin:
-          const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: isSpecialStatus
             ? statusColor.withOpacity(0.035)
             : Colors.white,
-        borderRadius:
-            BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: isSpecialStatus
               ? statusColor.withOpacity(0.25)
@@ -864,235 +724,141 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
         ),
         boxShadow: [
           BoxShadow(
-            color:
-                Colors.black.withOpacity(0.07),
+            color: Colors.black.withOpacity(0.07),
             blurRadius: 18,
-            offset:
-                const Offset(0, 6),
+            offset: const Offset(0, 6),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius:
-            BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24),
         child: Column(
           children: [
-            // ==================================================
-            // الشريط العلوي
-            // ==================================================
-
             Container(
               height: 5,
-              decoration:
-                  BoxDecoration(
-                gradient:
-                    LinearGradient(
-                  colors:
-                      isSpecialStatus
-                          ? [
-                              statusColor,
-                              statusColor
-                                  .withOpacity(
-                                      0.5),
-                            ]
-                          : const [
-                              primaryGreen,
-                              primaryBlue,
-                            ],
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: isSpecialStatus
+                      ? [
+                          statusColor,
+                          statusColor.withOpacity(0.5),
+                        ]
+                      : const [
+                          darkGrey,
+                          orange,
+                        ],
                 ),
               ),
             ),
-
             Padding(
-              padding:
-                  const EdgeInsets.all(17),
+              padding: const EdgeInsets.all(17),
               child: Column(
                 children: [
-                  // ==========================================
-                  // رأس الإنجاز
-                  // ==========================================
-
                   Row(
                     children: [
                       Container(
                         width: 50,
                         height: 50,
-                        decoration:
-                            BoxDecoration(
-                          gradient:
-                              LinearGradient(
-                            colors:
-                                isSpecialStatus
-                                    ? [
-                                        statusColor,
-                                        statusColor
-                                            .withOpacity(
-                                                0.65),
-                                      ]
-                                    : const [
-                                        primaryGreen,
-                                        primaryBlue,
-                                      ],
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: isSpecialStatus
+                                ? [
+                                    statusColor,
+                                    statusColor.withOpacity(0.65),
+                                  ]
+                                : const [
+                                    darkGrey,
+                                    orange,
+                                  ],
                           ),
-                          borderRadius:
-                              BorderRadius.circular(
-                                  15),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         child: Icon(
                           statusIcon,
-                          color:
-                              Colors.white,
+                          color: Colors.white,
                           size: 26,
                         ),
                       ),
-
-                      const SizedBox(
-                          width: 13),
-
+                      const SizedBox(width: 13),
                       Expanded(
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               isSpecialStatus
                                   ? 'حالة الطالب'
                                   : 'إنجاز القرآن الكريم',
-                              style:
-                                  TextStyle(
-                                color: Colors
-                                    .grey
-                                    .shade600,
+                              style: TextStyle(
+                                color: Colors.grey.shade600,
                                 fontSize: 12,
                               ),
                             ),
-
-                            const SizedBox(
-                                height: 4),
-
+                            const SizedBox(height: 4),
                             Text(
-                              isSpecialStatus
-                                  ? status
-                                  : 'سورة $surah',
+                              isSpecialStatus ? status : 'سورة $surah',
                               maxLines: 1,
-                              overflow:
-                                  TextOverflow
-                                      .ellipsis,
-                              style:
-                                  TextStyle(
-                                color:
-                                    isSpecialStatus
-                                        ? statusColor
-                                        : Colors
-                                            .black87,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: isSpecialStatus
+                                    ? statusColor
+                                    : Colors.black87,
                                 fontSize: 18,
-                                fontWeight:
-                                    FontWeight
-                                        .bold,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
                         ),
                       ),
-
                       _buildDateBadge(
                         date,
                       ),
                     ],
                   ),
-
-                  // ==========================================
-                  // حالات الغياب والإجازة والاستئذان
-                  // ==========================================
-
                   if (isSpecialStatus) ...[
-                    const SizedBox(
-                        height: 18),
-
+                    const SizedBox(height: 18),
                     _buildStatusDescription(
                       status: status,
                       color: statusColor,
                       icon: statusIcon,
                     ),
                   ],
-
-                  // ==========================================
-                  // إنجاز الحفظ
-                  // ==========================================
-
                   if (!isSpecialStatus) ...[
-                    const SizedBox(
-                        height: 18),
-
+                    const SizedBox(height: 18),
                     _buildHighlightCard(
-                      icon: Icons
-                          .format_list_numbered_rounded,
-                      iconColor:
-                          primaryGreen,
-                      label:
-                          'نطاق التسميع',
+                      icon: Icons.format_list_numbered_rounded,
+                      iconColor: darkGrey,
+                      label: 'نطاق التسميع',
                       value:
                           'من الآية ${data['fromAyah'] ?? '0'} إلى الآية ${data['toAyah'] ?? '0'}',
                     ),
-
-                    const SizedBox(
-                        height: 17),
-
+                    const SizedBox(height: 17),
                     _buildEvaluationSection(
                       grade,
                     ),
                   ],
-
-                  // ==========================================
-                  // 📚 المطلوب غداً
-                  // ==========================================
-
                   if (_hasText(
                     data['tomorrowRequirement'],
                   )) ...[
-                    const SizedBox(
-                        height: 15),
-
+                    const SizedBox(height: 15),
                     _buildHighlightCard(
-                      icon: Icons
-                          .auto_stories_rounded,
-                      iconColor:
-                          primaryBlue,
-                      label:
-                          'المطلوب غداً',
-                      value:
-                          data[
-                                  'tomorrowRequirement']
-                              .toString(),
+                      icon: Icons.auto_stories_rounded,
+                      iconColor: orange,
+                      label: 'المطلوب غداً',
+                      value: data['tomorrowRequirement'].toString(),
                     ),
                   ],
-
-                  // ==========================================
-                  // 📝 ملاحظة المدرس
-                  // ==========================================
-
                   if (_hasText(
                     data['notes'],
                   )) ...[
-                    const SizedBox(
-                        height: 11),
-
+                    const SizedBox(height: 11),
                     _buildHighlightCard(
-                      icon: Icons
-                          .edit_note_rounded,
-                      iconColor:
-                          primaryGreen,
-                      label:
-                          'ملاحظة المدرس',
-                      value:
-                          data['notes']
-                              .toString(),
+                      icon: Icons.edit_note_rounded,
+                      iconColor: darkGrey,
+                      label: 'ملاحظة المدرس',
+                      value: data['notes'].toString(),
                     ),
                   ],
-
-                  const SizedBox(
-                      height: 4),
+                  const SizedBox(height: 4),
                 ],
               ),
             ),
@@ -1109,37 +875,30 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   Widget _buildDateBadge(
     String date,
   ) {
-    final DateTime? gregorianDate =
-        DateTime.tryParse(date);
+    final DateTime? gregorianDate = DateTime.tryParse(date);
 
     if (gregorianDate == null) {
       return Container(
-        padding:
-            const EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 9,
           vertical: 7,
         ),
         decoration: BoxDecoration(
-          color:
-              Colors.grey.shade100,
-          borderRadius:
-              BorderRadius.circular(10),
+          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           date,
           style: TextStyle(
-            color:
-                Colors.grey.shade600,
+            color: Colors.grey.shade600,
             fontSize: 10,
-            fontWeight:
-                FontWeight.bold,
+            fontWeight: FontWeight.bold,
           ),
         ),
       );
     }
 
-    final HijriDate hijri =
-        HijriDate.fromDate(
+    final HijriDate hijri = HijriDate.fromDate(
       DateTime(
         gregorianDate.year,
         gregorianDate.month,
@@ -1147,8 +906,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
       ),
     );
 
-    final String hijriText =
-        '${_toArabicNumber(hijri.hDay)} '
+    final String hijriText = '${_toArabicNumber(hijri.hDay)} '
         '${_getHijriMonthName(hijri.hMonth)} '
         '${_toArabicNumber(hijri.hYear)} هـ';
 
@@ -1158,53 +916,40 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
         '${_toArabicNumber(gregorianDate.year)} م';
 
     return Container(
-      constraints:
-          const BoxConstraints(
+      constraints: const BoxConstraints(
         minWidth: 96,
       ),
-      padding:
-          const EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 9,
         vertical: 7,
       ),
       decoration: BoxDecoration(
-        color:
-            primaryGreen.withOpacity(0.07),
-        borderRadius:
-            BorderRadius.circular(12),
+        color: orange.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color:
-              primaryGreen.withOpacity(0.12),
+          color: orange.withOpacity(0.20),
         ),
       ),
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             hijriText,
-            textAlign:
-                TextAlign.center,
+            textAlign: TextAlign.center,
             style: const TextStyle(
-              color: primaryGreen,
+              color: darkGrey,
               fontSize: 10,
-              fontWeight:
-                  FontWeight.bold,
+              fontWeight: FontWeight.bold,
             ),
           ),
-
           const SizedBox(height: 3),
-
           Text(
             gregorianText,
-            textAlign:
-                TextAlign.center,
+            textAlign: TextAlign.center,
             style: TextStyle(
-              color:
-                  Colors.grey.shade600,
+              color: Colors.grey.shade600,
               fontSize: 9,
-              fontWeight:
-                  FontWeight.w500,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
@@ -1261,56 +1006,29 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   Widget _buildEvaluationSection(
     String grade,
   ) {
-    final bool memorization =
-        _gradeContains(
-      grade,
-      'حفظ',
-    );
-
-    final bool mastery =
-        _gradeContains(
-      grade,
-      'إتقان',
-    );
-
-    final bool tajweed =
-        _gradeContains(
-      grade,
-      'تجويد',
-    );
-
-    final bool review =
-        _gradeContains(
-      grade,
-      'مراجعة',
-    );
+    final bool memorization = _gradeContains(grade, 'حفظ');
+    final bool mastery = _gradeContains(grade, 'إتقان');
+    final bool tajweed = _gradeContains(grade, 'تجويد');
+    final bool review = _gradeContains(grade, 'مراجعة');
 
     return Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionTitle(
           icon: Icons.star_rounded,
           title: 'التقييم',
         ),
-
         const SizedBox(height: 10),
-
         Container(
-          padding:
-              const EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 8,
             vertical: 14,
           ),
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.grey.shade50,
-            borderRadius:
-                BorderRadius.circular(17),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(17),
             border: Border.all(
-              color:
-                  Colors.grey.shade200,
+              color: Colors.grey.shade200,
             ),
           ),
           child: Row(
@@ -1356,29 +1074,24 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
 
   // ============================================================
   // 💬 محادثة ولي الأمر مع المدير
-  // تظهر مرة واحدة فقط أعلى الإنجازات
   // ============================================================
 
   Widget _buildChatSection(
     Map<String, dynamic> record,
   ) {
-    final String studentId =
-        widget.child['id']?.toString() ?? '';
+    final String studentId = widget.child['id']?.toString() ?? '';
 
-    final String parentId =
-        widget.child['parentId']?.toString() ??
+    final String parentId = widget.child['parentId']?.toString() ??
         widget.child['parentUid']?.toString() ??
         widget.child['guardianId']?.toString() ??
         record['parentId']?.toString() ??
         '';
 
-    final String halaqaId =
-        widget.child['halaqaId']?.toString() ??
+    final String halaqaId = widget.child['halaqaId']?.toString() ??
         record['halaqaId']?.toString() ??
         '';
 
-    if (studentId.isEmpty ||
-        parentId.isEmpty) {
+    if (studentId.isEmpty || parentId.isEmpty) {
       return _buildParentMessageFallback(
         record,
       );
@@ -1404,22 +1117,21 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
     required String parentId,
     required String halaqaId,
   }) {
-    final Stream<QuerySnapshot> stream =
-        FirebaseFirestore.instance
-            .collection('messages')
-            .where(
-              'adminId',
-              isEqualTo: _adminId,
-            )
-            .where(
-              'parentId',
-              isEqualTo: parentId,
-            )
-            .where(
-              'studentId',
-              isEqualTo: studentId,
-            )
-            .snapshots();
+    final Stream<QuerySnapshot> stream = FirebaseFirestore.instance
+        .collection('messages')
+        .where(
+          'adminId',
+          isEqualTo: _adminId,
+        )
+        .where(
+          'parentId',
+          isEqualTo: parentId,
+        )
+        .where(
+          'studentId',
+          isEqualTo: studentId,
+        )
+        .snapshots();
 
     return StreamBuilder<QuerySnapshot>(
       stream: stream,
@@ -1428,198 +1140,121 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
           return _buildChatError();
         }
 
-        if (snapshot.connectionState ==
-                ConnectionState.waiting &&
+        if (snapshot.connectionState == ConnectionState.waiting &&
             !snapshot.hasData) {
           return _buildChatLoading();
         }
 
-        final List<DocumentSnapshot> docs =
-            snapshot.data?.docs.toList() ?? [];
+        final List<DocumentSnapshot> docs = snapshot.data?.docs.toList() ?? [];
 
         docs.sort((a, b) {
           final Map<String, dynamic> dataA =
-              (a.data()
-                      as Map<String, dynamic>?) ??
-                  {};
-
+              (a.data() as Map<String, dynamic>?) ?? {};
           final Map<String, dynamic> dataB =
-              (b.data()
-                      as Map<String, dynamic>?) ??
-                  {};
+              (b.data() as Map<String, dynamic>?) ?? {};
 
-          final Timestamp? timeA =
-              dataA['createdAt']
-                  as Timestamp?;
+          final Timestamp? timeA = dataA['createdAt'] as Timestamp?;
+          final Timestamp? timeB = dataB['createdAt'] as Timestamp?;
 
-          final Timestamp? timeB =
-              dataB['createdAt']
-                  as Timestamp?;
-
-          if (timeA == null &&
-              timeB == null) {
-            return 0;
-          }
-
-          if (timeA == null) {
-            return -1;
-          }
-
-          if (timeB == null) {
-            return 1;
-          }
+          if (timeA == null && timeB == null) return 0;
+          if (timeA == null) return -1;
+          if (timeB == null) return 1;
 
           return timeA.compareTo(timeB);
         });
 
         return Container(
           width: double.infinity,
-          padding:
-              const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius:
-                BorderRadius.circular(22),
+            borderRadius: BorderRadius.circular(22),
             boxShadow: [
               BoxShadow(
-                color:
-                    Colors.black.withOpacity(0.07),
+                color: Colors.black.withOpacity(0.07),
                 blurRadius: 18,
-                offset:
-                    const Offset(0, 6),
+                offset: const Offset(0, 6),
               ),
             ],
           ),
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ==================================================
-              // عنوان المحادثة
-              // ==================================================
-
               Row(
                 children: [
                   Container(
                     width: 44,
                     height: 44,
-                    decoration:
-                        BoxDecoration(
-                      color: primaryBlue
-                          .withOpacity(0.10),
-                      borderRadius:
-                          BorderRadius.circular(
-                              13),
+                    decoration: BoxDecoration(
+                      color: orange.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(13),
                     ),
                     child: const Icon(
-                      Icons
-                          .admin_panel_settings_rounded,
-                      color:
-                          primaryBlue,
+                      Icons.admin_panel_settings_rounded,
+                      color: orange,
                       size: 23,
                     ),
                   ),
-
-                  const SizedBox(
-                      width: 10),
-
+                  const SizedBox(width: 10),
                   const Expanded(
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment
-                              .start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'التواصل مع الإدارة',
-                          style:
-                              TextStyle(
-                            color:
-                                Colors.black87,
+                          style: TextStyle(
+                            color: Colors.black87,
                             fontSize: 15,
-                            fontWeight:
-                                FontWeight.bold,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
-                            height: 3),
+                        SizedBox(height: 3),
                         Text(
                           'رسائل ولي الأمر والمدير',
-                          style:
-                              TextStyle(
-                            color:
-                                Colors.black45,
+                          style: TextStyle(
+                            color: Colors.black45,
                             fontSize: 11,
                           ),
                         ),
                       ],
                     ),
                   ),
-
                   if (docs.isNotEmpty)
                     Container(
-                      padding:
-                          const EdgeInsets
-                              .symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 9,
                         vertical: 6,
                       ),
-                      decoration:
-                          BoxDecoration(
-                        color: primaryGreen
-                            .withOpacity(
-                                0.09),
-                        borderRadius:
-                            BorderRadius
-                                .circular(
-                                    10),
+                      decoration: BoxDecoration(
+                        color: orange.withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         '${docs.length}',
-                        style:
-                            const TextStyle(
-                          color:
-                              primaryGreen,
+                        style: const TextStyle(
+                          color: orange,
                           fontSize: 11,
-                          fontWeight:
-                              FontWeight.bold,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                 ],
               ),
-
-              const SizedBox(
-                  height: 14),
-
-              // ==================================================
-              // الرسائل
-              // ==================================================
-
+              const SizedBox(height: 14),
               if (docs.isEmpty)
                 _buildNoMessages()
               else
                 Container(
-                  constraints:
-                      const BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxHeight: 360,
                   ),
-                  child:
-                      ListView.builder(
+                  child: ListView.builder(
                     shrinkWrap: true,
-                    physics:
-                        const BouncingScrollPhysics(),
-                    itemCount:
-                        docs.length,
-                    itemBuilder:
-                        (context, index) {
-                      final Map<String,
-                              dynamic>
-                          data =
-                          (docs[index]
-                                  .data()
-                              as Map<String,
-                                  dynamic>?) ??
-                              {};
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: docs.length,
+                    itemBuilder: (context, index) {
+                      final Map<String, dynamic> data =
+                          (docs[index].data() as Map<String, dynamic>?) ?? {};
 
                       return _buildMessageBubble(
                         data,
@@ -1627,14 +1262,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
                     },
                   ),
                 ),
-
-              const SizedBox(
-                  height: 13),
-
-              // ==================================================
-              // إرسال رسالة
-              // ==================================================
-
+              const SizedBox(height: 13),
               _buildSendMessageBox(
                 studentId: studentId,
                 parentId: parentId,
@@ -1654,127 +1282,81 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   Widget _buildMessageBubble(
     Map<String, dynamic> data,
   ) {
-    final String role =
-        data['senderRole']
-                ?.toString() ??
-            'parent';
-
-    final bool isAdmin =
-        role == 'admin';
-
-    final String text =
-        data['text']?.toString() ?? '';
-
-    final Timestamp? createdAt =
-        data['createdAt']
-            as Timestamp?;
+    final String role = data['senderRole']?.toString() ?? 'parent';
+    final bool isAdmin = role == 'admin';
+    final String text = data['text']?.toString() ?? '';
+    final Timestamp? createdAt = data['createdAt'] as Timestamp?;
 
     String timeText = '';
 
     if (createdAt != null) {
-      final date =
-          createdAt.toDate();
-
-      timeText =
-          '${date.hour.toString().padLeft(2, '0')}:'
+      final date = createdAt.toDate();
+      timeText = '${date.hour.toString().padLeft(2, '0')}:'
           '${date.minute.toString().padLeft(2, '0')}';
     }
 
     return Align(
-      alignment: isAdmin
-          ? Alignment.centerLeft
-          : Alignment.centerRight,
+      alignment: isAdmin ? Alignment.centerLeft : Alignment.centerRight,
       child: Container(
-        constraints:
-            const BoxConstraints(
+        constraints: const BoxConstraints(
           maxWidth: 310,
         ),
-        margin:
-            const EdgeInsets.only(
+        margin: const EdgeInsets.only(
           bottom: 9,
         ),
-        padding:
-            const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: isAdmin
-              ? primaryGreen
-                  .withOpacity(0.09)
-              : primaryBlue
-                  .withOpacity(0.09),
-          borderRadius:
-              BorderRadius.circular(16),
+              ? darkGrey.withOpacity(0.09)
+              : orange.withOpacity(0.10),
+          borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isAdmin
-                ? primaryGreen
-                    .withOpacity(0.16)
-                : primaryBlue
-                    .withOpacity(0.16),
+                ? darkGrey.withOpacity(0.16)
+                : orange.withOpacity(0.20),
           ),
         ),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisSize:
-                  MainAxisSize.min,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   isAdmin
-                      ? Icons
-                          .admin_panel_settings_rounded
+                      ? Icons.admin_panel_settings_rounded
                       : Icons.person_rounded,
-                  color: isAdmin
-                      ? primaryGreen
-                      : primaryBlue,
+                  color: isAdmin ? darkGrey : orange,
                   size: 15,
                 ),
-
-                const SizedBox(
-                    width: 5),
-
+                const SizedBox(width: 5),
                 Text(
-                  isAdmin
-                      ? 'المدير'
-                      : 'ولي الأمر',
+                  isAdmin ? 'المدير' : 'ولي الأمر',
                   style: TextStyle(
-                    color: isAdmin
-                        ? primaryGreen
-                        : primaryBlue,
+                    color: isAdmin ? darkGrey : orange,
                     fontSize: 10,
-                    fontWeight:
-                        FontWeight.bold,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
-
-            const SizedBox(
-                height: 6),
-
+            const SizedBox(height: 6),
             Text(
               text,
-              textDirection:
-                  TextDirection.rtl,
-              textAlign:
-                  TextAlign.right,
-              style:
-                  const TextStyle(
-                color:
-                    Colors.black87,
+              textDirection: TextDirection.rtl,
+              textAlign: TextAlign.right,
+              style: const TextStyle(
+                color: Colors.black87,
                 fontSize: 13,
                 height: 1.5,
               ),
             ),
-
             if (timeText.isNotEmpty) ...[
-              const SizedBox(
-                  height: 5),
+              const SizedBox(height: 5),
               Text(
                 timeText,
                 style: TextStyle(
-                  color:
-                      Colors.grey.shade500,
+                  color: Colors.grey.shade500,
                   fontSize: 9,
                 ),
               ),
@@ -1795,112 +1377,79 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
     required String halaqaId,
   }) {
     return Container(
-      padding:
-          const EdgeInsets.all(11),
+      padding: const EdgeInsets.all(11),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
-        borderRadius:
-            BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: Colors.grey.shade200,
         ),
       ),
       child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
             child: TextField(
-              controller:
-                  _parentMessageController,
-
+              controller: _parentMessageController,
               maxLines: 3,
               minLines: 1,
-
-              textDirection:
-                  TextDirection.rtl,
-              textAlign:
-                  TextAlign.right,
-
+              textDirection: TextDirection.rtl,
+              textAlign: TextAlign.right,
               style: const TextStyle(
                 color: Colors.black87,
                 fontSize: 14,
-                fontWeight:
-                    FontWeight.w500,
+                fontWeight: FontWeight.w500,
                 height: 1.5,
               ),
-
-              decoration:
-                  InputDecoration(
-                hintText:
-                    'اكتب رسالة للإدارة...',
-                hintStyle:
-                    TextStyle(
-                  color:
-                      Colors.grey.shade400,
+              decoration: InputDecoration(
+                hintText: 'اكتب رسالة للإدارة...',
+                hintStyle: TextStyle(
+                  color: Colors.grey.shade400,
                   fontSize: 12,
                 ),
-                border:
-                    InputBorder.none,
-                enabledBorder:
-                    InputBorder.none,
-                focusedBorder:
-                    InputBorder.none,
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
               ),
             ),
           ),
-
           const SizedBox(width: 8),
-
           Container(
             width: 45,
             height: 45,
-            decoration:
-                const BoxDecoration(
-              gradient:
-                  LinearGradient(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
                 colors: [
-                  primaryGreen,
-                  primaryBlue,
+                  darkGrey,
+                  orange,
                 ],
               ),
-              shape:
-                  BoxShape.circle,
+              shape: BoxShape.circle,
             ),
             child: IconButton(
-              onPressed:
-                  _sendingMessage
-                      ? null
-                      : () {
-                          _sendMessage(
-                            studentId:
-                                studentId,
-                            parentId:
-                                parentId,
-                            halaqaId:
-                                halaqaId,
-                          );
-                        },
-              icon:
-                  _sendingMessage
-                      ? const SizedBox(
-                          width: 18,
-                          height: 18,
-                          child:
-                              CircularProgressIndicator(
-                            strokeWidth:
-                                2,
-                            color:
-                                Colors.white,
-                          ),
-                        )
-                      : const Icon(
-                          Icons
-                              .send_rounded,
-                          color:
-                              Colors.white,
-                          size: 20,
-                        ),
+              onPressed: _sendingMessage
+                  ? null
+                  : () {
+                      _sendMessage(
+                        studentId: studentId,
+                        parentId: parentId,
+                        halaqaId: halaqaId,
+                      );
+                    },
+              icon: _sendingMessage
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Icon(
+                      Icons.send_rounded,
+                      color: Colors.white,
+                      size: 20,
+                    ),
             ),
           ),
         ],
@@ -1917,10 +1466,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
     required String parentId,
     required String halaqaId,
   }) async {
-    final String text =
-        _parentMessageController
-            .text
-            .trim();
+    final String text = _parentMessageController.text.trim();
 
     if (text.isEmpty) {
       return;
@@ -1932,14 +1478,12 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
       if (_adminId == null) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context)
-            .showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text(
               'تعذر العثور على حساب المدير.',
             ),
-            backgroundColor:
-                Colors.redAccent,
+            backgroundColor: Colors.redAccent,
           ),
         );
 
@@ -1953,139 +1497,58 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
 
     try {
       final String studentName =
-          widget.child['name']
-                  ?.toString() ??
-              'الطالب';
+          widget.child['name']?.toString() ?? 'الطالب';
 
-      final String parentName =
-          widget.child['parentName']
-                  ?.toString() ??
-              widget.child['guardianName']
-                  ?.toString() ??
-              'ولي الأمر';
+      final String parentName = widget.child['parentName']?.toString() ??
+          widget.child['guardianName']?.toString() ??
+          'ولي الأمر';
 
-      final String halaqaName =
-          widget.child['halaqaName']
-                  ?.toString() ??
-              '';
+      final String halaqaName = widget.child['halaqaName']?.toString() ?? '';
 
-      final String currentParentId =
-          parentId;
+      final String currentParentId = parentId;
+      final String conversationId = '${currentParentId}_$studentId';
 
-      final String conversationId =
-          '${currentParentId}_$studentId';
-
-      await FirebaseFirestore
-          .instance
-          .collection('messages')
-          .add({
-        // =====================================================
-        // المحادثة
-        // =====================================================
-
-        'conversationId':
-            conversationId,
-
-        // =====================================================
-        // الطالب
-        // =====================================================
-
-        'studentId':
-            studentId,
-
-        'studentName':
-            studentName,
-
-        // =====================================================
-        // ولي الأمر
-        // =====================================================
-
-        'parentId':
-            currentParentId,
-
-        'parentName':
-            parentName,
-
-        // =====================================================
-        // الحلقة
-        // =====================================================
-
-        'halaqaId':
-            halaqaId,
-
-        'halaqaName':
-            halaqaName,
-
-        // =====================================================
-        // المدير
-        // =====================================================
-
-        'adminId':
-            _adminId,
-
-        // =====================================================
-        // المرسل والمستقبل
-        // =====================================================
-
-        'senderId':
-            currentParentId,
-
-        'senderRole':
-            'parent',
-
-        'receiverId':
-            _adminId,
-
-        'receiverRole':
-            'admin',
-
-        // =====================================================
-        // الرسالة
-        // =====================================================
-
-        'text':
-            text,
-
-        // =====================================================
-        // الوقت
-        // =====================================================
-
-        'createdAt':
-            FieldValue.serverTimestamp(),
-
-        'updatedAt':
-            FieldValue.serverTimestamp(),
+      await FirebaseFirestore.instance.collection('messages').add({
+        'conversationId': conversationId,
+        'studentId': studentId,
+        'studentName': studentName,
+        'parentId': currentParentId,
+        'parentName': parentName,
+        'halaqaId': halaqaId,
+        'halaqaName': halaqaName,
+        'adminId': _adminId,
+        'senderId': currentParentId,
+        'senderRole': 'parent',
+        'receiverId': _adminId,
+        'receiverRole': 'admin',
+        'text': text,
+        'createdAt': FieldValue.serverTimestamp(),
+        'updatedAt': FieldValue.serverTimestamp(),
       });
 
       _parentMessageController.clear();
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
             'تم إرسال الرسالة إلى الإدارة.',
           ),
-          backgroundColor:
-              primaryGreen,
-          behavior:
-              SnackBarBehavior.floating,
+          backgroundColor: darkGrey,
+          behavior: SnackBarBehavior.floating,
         ),
       );
     } catch (e) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
             'تعذر إرسال الرسالة: $e',
           ),
-          backgroundColor:
-              Colors.redAccent,
-          behavior:
-              SnackBarBehavior.floating,
+          backgroundColor: Colors.redAccent,
+          behavior: SnackBarBehavior.floating,
         ),
       );
     } finally {
@@ -2106,17 +1569,13 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   ) {
     return Container(
       width: double.infinity,
-      padding:
-          const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color:
-            Colors.white.withOpacity(0.95),
-        borderRadius:
-            BorderRadius.circular(18),
+        color: Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color:
-                Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 12,
           ),
         ],
@@ -2131,20 +1590,17 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
           SizedBox(height: 7),
           Text(
             'التواصل مع الإدارة غير متاح حالياً',
-            textAlign:
-                TextAlign.center,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black54,
               fontSize: 12,
-              fontWeight:
-                  FontWeight.bold,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 4),
           Text(
             'لم يتم ربط الطالب بحساب ولي الأمر.',
-            textAlign:
-                TextAlign.center,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black38,
               fontSize: 10,
@@ -2158,13 +1614,10 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   Widget _buildNoMessages() {
     return Container(
       width: double.infinity,
-      padding:
-          const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color:
-            Colors.grey.shade50,
-        borderRadius:
-            BorderRadius.circular(15),
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(15),
       ),
       child: const Column(
         children: [
@@ -2179,8 +1632,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
             style: TextStyle(
               color: Colors.black54,
               fontSize: 12,
-              fontWeight:
-                  FontWeight.bold,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 3),
@@ -2199,21 +1651,18 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   Widget _buildChatLoading() {
     return Container(
       width: double.infinity,
-      padding:
-          const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius:
-            BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: const Center(
         child: SizedBox(
           width: 22,
           height: 22,
-          child:
-              CircularProgressIndicator(
+          child: CircularProgressIndicator(
             strokeWidth: 2,
-            color: primaryBlue,
+            color: orange,
           ),
         ),
       ),
@@ -2223,32 +1672,26 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   Widget _buildAdminLoading() {
     return Container(
       width: double.infinity,
-      padding:
-          const EdgeInsets.all(17),
+      padding: const EdgeInsets.all(17),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius:
-            BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color:
-                Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 12,
           ),
         ],
       ),
       child: const Row(
-        mainAxisAlignment:
-            MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             width: 18,
             height: 18,
-            child:
-                CircularProgressIndicator(
+            child: CircularProgressIndicator(
               strokeWidth: 2,
-              color:
-                  primaryBlue,
+              color: orange,
             ),
           ),
           SizedBox(width: 10),
@@ -2256,8 +1699,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
             'جاري الاتصال بالإدارة...',
             style: TextStyle(
               fontSize: 12,
-              color:
-                  Colors.black54,
+              color: Colors.black54,
             ),
           ),
         ],
@@ -2268,22 +1710,17 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   Widget _buildChatError() {
     return Container(
       width: double.infinity,
-      padding:
-          const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color:
-            Colors.white,
-        borderRadius:
-            BorderRadius.circular(18),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color:
-              Colors.red.withOpacity(0.15),
+          color: Colors.red.withOpacity(0.15),
         ),
       ),
       child: const Text(
         'تعذر تحميل المحادثة.',
-        textAlign:
-            TextAlign.center,
+        textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.red,
           fontSize: 12,
@@ -2305,57 +1742,44 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
 
     switch (status) {
       case 'غائب':
-        description =
-            'لم يحضر الطالب إلى الحلقة في هذا اليوم.';
+        description = 'لم يحضر الطالب إلى الحلقة في هذا اليوم.';
         break;
 
       case 'إجازة':
-        description =
-            'الطالب في إجازة ولا يوجد إنجاز مسجل لهذا اليوم.';
+        description = 'الطالب في إجازة ولا يوجد إنجاز مسجل لهذا اليوم.';
         break;
 
       case 'مستأذن':
-        description =
-            'الطالب مستأذن لهذا اليوم بعذر مسجل.';
+        description = 'الطالب مستأذن لهذا اليوم بعذر مسجل.';
         break;
 
       case 'مراجعة':
-        description =
-            'تم تخصيص هذا اليوم لمراجعة المحفوظ السابق.';
+        description = 'تم تخصيص هذا اليوم لمراجعة المحفوظ السابق.';
         break;
 
       default:
-        description =
-            'تم تسجيل حالة خاصة للطالب.';
+        description = 'تم تسجيل حالة خاصة للطالب.';
     }
 
     return Container(
       width: double.infinity,
-      padding:
-          const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color:
-            color.withOpacity(0.07),
-        borderRadius:
-            BorderRadius.circular(17),
+        color: color.withOpacity(0.07),
+        borderRadius: BorderRadius.circular(17),
         border: Border.all(
-          color:
-              color.withOpacity(0.16),
+          color: color.withOpacity(0.16),
         ),
       ),
       child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 42,
             height: 42,
-            decoration:
-                BoxDecoration(
-              color:
-                  color.withOpacity(0.12),
-              shape:
-                  BoxShape.circle,
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.12),
+              shape: BoxShape.circle,
             ),
             child: Icon(
               icon,
@@ -2363,33 +1787,24 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               size: 22,
             ),
           ),
-
           const SizedBox(width: 11),
-
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   status,
                   style: TextStyle(
                     color: color,
                     fontSize: 14,
-                    fontWeight:
-                        FontWeight.bold,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-
-                const SizedBox(
-                    height: 5),
-
+                const SizedBox(height: 5),
                 Text(
                   description,
-                  style:
-                      const TextStyle(
-                    color:
-                        Colors.black87,
+                  style: const TextStyle(
+                    color: Colors.black87,
                     fontSize: 13,
                     height: 1.5,
                   ),
@@ -2414,18 +1829,16 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
       children: [
         Icon(
           icon,
-          color: primaryGreen,
+          color: darkGrey,
           size: 20,
         ),
         const SizedBox(width: 7),
         Text(
           title,
-          style:
-              const TextStyle(
+          style: const TextStyle(
             color: Colors.black87,
             fontSize: 14,
-            fontWeight:
-                FontWeight.bold,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ],
@@ -2444,32 +1857,23 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   }) {
     return Container(
       width: double.infinity,
-      padding:
-          const EdgeInsets.all(13),
+      padding: const EdgeInsets.all(13),
       decoration: BoxDecoration(
-        color:
-            iconColor.withOpacity(0.07),
-        borderRadius:
-            BorderRadius.circular(16),
+        color: iconColor.withOpacity(0.07),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color:
-              iconColor.withOpacity(0.18),
+          color: iconColor.withOpacity(0.18),
         ),
       ),
       child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 40,
             height: 40,
-            decoration:
-                BoxDecoration(
-              color:
-                  iconColor.withOpacity(
-                      0.13),
-              borderRadius:
-                  BorderRadius.circular(12),
+            decoration: BoxDecoration(
+              color: iconColor.withOpacity(0.13),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
               icon,
@@ -2477,37 +1881,26 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
               size: 21,
             ),
           ),
-
           const SizedBox(width: 11),
-
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   label,
                   style: TextStyle(
                     color: iconColor,
                     fontSize: 12,
-                    fontWeight:
-                        FontWeight.bold,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-
-                const SizedBox(
-                    height: 5),
-
+                const SizedBox(height: 5),
                 Text(
                   value,
-                  textDirection:
-                      TextDirection.rtl,
-                  textAlign:
-                      TextAlign.right,
-                  style:
-                      const TextStyle(
-                    color:
-                        Colors.black87,
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                    color: Colors.black87,
                     fontSize: 14,
                     height: 1.55,
                   ),
@@ -2529,10 +1922,7 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
     bool isDone,
     IconData icon,
   ) {
-    final Color color =
-        isDone
-            ? primaryGreen
-            : Colors.grey;
+    final Color color = isDone ? orange : Colors.grey;
 
     return Expanded(
       child: Column(
@@ -2540,54 +1930,33 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
           Container(
             width: 38,
             height: 38,
-            decoration:
-                BoxDecoration(
+            decoration: BoxDecoration(
               color: isDone
-                  ? primaryGreen
-                      .withOpacity(0.10)
-                  : Colors.grey
-                      .withOpacity(0.08),
-              shape:
-                  BoxShape.circle,
+                  ? orange.withOpacity(0.12)
+                  : Colors.grey.withOpacity(0.08),
+              shape: BoxShape.circle,
             ),
             child: Icon(
-              isDone
-                  ? icon
-                  : Icons.remove_rounded,
+              isDone ? icon : Icons.remove_rounded,
               color: color,
               size: 19,
             ),
           ),
-
-          const SizedBox(
-              height: 6),
-
+          const SizedBox(height: 6),
           Text(
             title,
-            textAlign:
-                TextAlign.center,
+            textAlign: TextAlign.center,
             style: TextStyle(
-              color: isDone
-                  ? Colors.black87
-                  : Colors.grey,
+              color: isDone ? Colors.black87 : Colors.grey,
               fontSize: 11,
-              fontWeight: isDone
-                  ? FontWeight.bold
-                  : FontWeight.normal,
+              fontWeight: isDone ? FontWeight.bold : FontWeight.normal,
             ),
           ),
-
-          const SizedBox(
-              height: 2),
-
+          const SizedBox(height: 2),
           Text(
-            isDone
-                ? 'ممتاز'
-                : 'لم يسجل',
+            isDone ? 'ممتاز' : 'لم يسجل',
             style: TextStyle(
-              color: isDone
-                  ? primaryGreen
-                  : Colors.grey.shade400,
+              color: isDone ? orange : Colors.grey.shade400,
               fontSize: 8,
             ),
           ),
@@ -2602,9 +1971,8 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
 
   Widget _buildLoading() {
     return const Center(
-      child:
-          CircularProgressIndicator(
-        color: Colors.white,
+      child: CircularProgressIndicator(
+        color: orange,
         strokeWidth: 3,
       ),
     );
@@ -2621,82 +1989,57 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   }) {
     return Center(
       child: Padding(
-        padding:
-            const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         child: Container(
           width: double.infinity,
-          padding:
-              const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(25),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius:
-                BorderRadius.circular(25),
+            borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                color: Colors.black
-                    .withOpacity(0.08),
+                color: Colors.black.withOpacity(0.08),
                 blurRadius: 20,
               ),
             ],
           ),
           child: Column(
-            mainAxisSize:
-                MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 width: 75,
                 height: 75,
-                decoration:
-                    BoxDecoration(
-                  gradient:
-                      LinearGradient(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
                     colors: [
-                      primaryGreen
-                          .withOpacity(
-                              0.12),
-                      primaryBlue
-                          .withOpacity(
-                              0.12),
+                      darkGrey.withOpacity(0.12),
+                      orange.withOpacity(0.12),
                     ],
                   ),
-                  shape:
-                      BoxShape.circle,
+                  shape: BoxShape.circle,
                 ),
                 child: Icon(
                   icon,
-                  color:
-                      primaryGreen,
+                  color: darkGrey,
                   size: 38,
                 ),
               ),
-
-              const SizedBox(
-                  height: 18),
-
+              const SizedBox(height: 18),
               Text(
                 title,
-                textAlign:
-                    TextAlign.center,
-                style:
-                    const TextStyle(
-                  color:
-                      Colors.black87,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black87,
                   fontSize: 18,
-                  fontWeight:
-                      FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-
-              const SizedBox(
-                  height: 8),
-
+              const SizedBox(height: 8),
               Text(
                 subtitle,
-                textAlign:
-                    TextAlign.center,
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  color:
-                      Colors.grey.shade600,
+                  color: Colors.grey.shade600,
                   fontSize: 13,
                   height: 1.5,
                 ),
@@ -2710,12 +2053,9 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
 
   Widget _buildErrorState() {
     return _buildEmptyState(
-      icon:
-          Icons.person_off_rounded,
-      title:
-          'تعذر العثور على الطالب',
-      subtitle:
-          'لم يتم العثور على معرف الطالب المطلوب.',
+      icon: Icons.person_off_rounded,
+      title: 'تعذر العثور على الطالب',
+      subtitle: 'لم يتم العثور على معرف الطالب المطلوب.',
     );
   }
 
@@ -2724,21 +2064,9 @@ class _ChildDetailsScreenState extends State<ChildDetailsScreen> {
   // ============================================================
 
   bool _hasText(dynamic value) {
-    if (value == null) {
-      return false;
-    }
-
-    final String text =
-        value.toString().trim();
-
-    if (text.isEmpty) {
-      return false;
-    }
-
-    if (text == 'لا يوجد') {
-      return false;
-    }
-
+    if (value == null) return false;
+    final String text = value.toString().trim();
+    if (text.isEmpty || text == 'لا يوجد') return false;
     return true;
   }
 }
