@@ -9,22 +9,24 @@ class DonateScreen extends StatelessWidget {
   // ألوان التطبيق الرسمية
   // ============================================================
 
-  static const Color darkGreen = Color(0xFF454545);
-  static const Color blue = Color(0xFFE6E6E6);
-  static const Color lightBackground = Color(0xFFF5F5F5);
+  static const Color darkGrey = Color(0xFF454545);
+  static const Color lightGrey = Color(0xFFE6E6E6);
+  static const Color lightBackground = Color(0xFFF7F7F7);
+  static const Color orange = Color(0xFFFF8500);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: lightBackground,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              darkGreen,
-              blue,
+              darkGrey,
+              lightGrey,
               lightBackground,
             ],
             stops: [
@@ -131,7 +133,7 @@ class DonateScreen extends StatelessWidget {
                               subtitle: 'الحساب البنكي',
                               detail: accountNumber,
                               icon: Icons.account_balance_rounded,
-                              color: darkGreen,
+                              color: orange,
                             ),
 
                             const SizedBox(height: 12),
@@ -146,7 +148,7 @@ class DonateScreen extends StatelessWidget {
                               subtitle: 'بيانات التحويل',
                               detail: transferName,
                               icon: Icons.swap_horiz_rounded,
-                              color: blue,
+                              color: darkGrey,
                             ),
 
                             const SizedBox(height: 22),
@@ -203,13 +205,13 @@ class DonateScreen extends StatelessWidget {
         vertical: 14,
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.96),
+        color: Colors.white.withOpacity(0.97),
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.12),
+            color: Colors.black.withOpacity(0.10),
             blurRadius: 18,
-            offset: const Offset(0, 7),
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -221,14 +223,16 @@ class DonateScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  darkGreen,
-                  blue,
+                  darkGrey,
+                  orange,
                 ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(
-                  color: darkGreen.withOpacity(0.25),
+                  color: orange.withOpacity(0.25),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -289,15 +293,15 @@ class DonateScreen extends StatelessWidget {
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [
-            Color(0xFF1B5E20),
-            darkGreen,
-            blue,
+            darkGrey,
+            Color(0xFF333333),
+            darkGrey,
           ],
         ),
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: darkGreen.withOpacity(0.30),
+            color: darkGrey.withOpacity(0.35),
             blurRadius: 22,
             offset: const Offset(0, 10),
           ),
@@ -310,16 +314,16 @@ class DonateScreen extends StatelessWidget {
             width: 82,
             height: 82,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.16),
+              color: orange.withOpacity(0.18),
               shape: BoxShape.circle,
               border: Border.all(
-                color: Colors.white.withOpacity(0.35),
+                color: orange.withOpacity(0.50),
                 width: 2,
               ),
             ),
             child: const Icon(
               Icons.mosque_rounded,
-              color: Colors.white,
+              color: orange,
               size: 45,
             ),
           ),
@@ -357,10 +361,10 @@ class DonateScreen extends StatelessWidget {
               vertical: 9,
             ),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.15),
+              color: orange.withOpacity(0.20),
               borderRadius: BorderRadius.circular(30),
               border: Border.all(
-                color: Colors.white.withOpacity(0.25),
+                color: orange.withOpacity(0.40),
               ),
             ),
             child: const Row(
@@ -368,7 +372,7 @@ class DonateScreen extends StatelessWidget {
               children: [
                 Icon(
                   Icons.favorite_rounded,
-                  color: Colors.white,
+                  color: orange,
                   size: 18,
                 ),
                 SizedBox(width: 7),
@@ -405,11 +409,11 @@ class DonateScreen extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: darkGreen.withOpacity(0.12),
+          color: darkGrey.withOpacity(0.10),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.07),
+            color: Colors.black.withOpacity(0.06),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
@@ -421,12 +425,12 @@ class DonateScreen extends StatelessWidget {
             width: 46,
             height: 46,
             decoration: BoxDecoration(
-              color: darkGreen.withOpacity(0.09),
+              color: orange.withOpacity(0.12),
               shape: BoxShape.circle,
             ),
             child: const Icon(
               Icons.format_quote_rounded,
-              color: darkGreen,
+              color: orange,
               size: 28,
             ),
           ),
@@ -436,7 +440,7 @@ class DonateScreen extends StatelessWidget {
           const Text(
             'فضل بناء المساجد',
             style: TextStyle(
-              color: darkGreen,
+              color: darkGrey,
               fontSize: 14,
               fontWeight: FontWeight.w900,
             ),
@@ -474,12 +478,18 @@ class DonateScreen extends StatelessWidget {
           width: 43,
           height: 43,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.95),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(13),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.06),
+                blurRadius: 8,
+              ),
+            ],
           ),
           child: Icon(
             icon,
-            color: darkGreen,
+            color: darkGrey,
             size: 24,
           ),
         ),
@@ -492,7 +502,7 @@ class DonateScreen extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black87,
                 fontSize: 18,
                 fontWeight: FontWeight.w900,
               ),
@@ -500,8 +510,8 @@ class DonateScreen extends StatelessWidget {
             const SizedBox(height: 2),
             Text(
               subtitle,
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.85),
+              style: const TextStyle(
+                color: Colors.black54,
                 fontSize: 11,
               ),
             ),
@@ -530,11 +540,11 @@ class DonateScreen extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(22),
         border: Border.all(
-          color: color.withOpacity(0.14),
+          color: color.withOpacity(0.18),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.07),
+            color: color.withOpacity(0.08),
             blurRadius: 13,
             offset: const Offset(0, 5),
           ),
@@ -551,7 +561,7 @@ class DonateScreen extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   color.withOpacity(0.18),
-                  color.withOpacity(0.07),
+                  color.withOpacity(0.06),
                 ],
               ),
               borderRadius: BorderRadius.circular(16),
@@ -636,7 +646,7 @@ class DonateScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    backgroundColor: darkGreen,
+                    backgroundColor: darkGrey,
                     behavior: SnackBarBehavior.floating,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
@@ -669,10 +679,10 @@ class DonateScreen extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Colors.amber.shade50,
+        color: orange.withOpacity(0.08),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: Colors.amber.shade200,
+          color: orange.withOpacity(0.25),
         ),
       ),
       child: Row(
@@ -682,12 +692,12 @@ class DonateScreen extends StatelessWidget {
             width: 38,
             height: 38,
             decoration: BoxDecoration(
-              color: Colors.amber.shade100,
+              color: orange.withOpacity(0.15),
               shape: BoxShape.circle,
             ),
-            child: Icon(
+            child: const Icon(
               Icons.info_outline_rounded,
-              color: Colors.amber.shade800,
+              color: orange,
               size: 21,
             ),
           ),
@@ -754,9 +764,11 @@ class DonateScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  darkGreen,
-                  blue,
+                  darkGrey,
+                  orange,
                 ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(16),
             ),
@@ -796,7 +808,7 @@ class DonateScreen extends StatelessWidget {
           ),
 
           Material(
-            color: darkGreen.withOpacity(0.10),
+            color: darkGrey.withOpacity(0.10),
             borderRadius: BorderRadius.circular(12),
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
@@ -813,7 +825,7 @@ class DonateScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    backgroundColor: darkGreen,
+                    backgroundColor: darkGrey,
                     behavior: SnackBarBehavior.floating,
                   ),
                 );
@@ -822,7 +834,7 @@ class DonateScreen extends StatelessWidget {
                 padding: EdgeInsets.all(10),
                 child: Icon(
                   Icons.copy_rounded,
-                  color: darkGreen,
+                  color: darkGrey,
                   size: 20,
                 ),
               ),
@@ -844,18 +856,21 @@ class DonateScreen extends StatelessWidget {
         vertical: 13,
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.18),
+        color: Colors.white.withOpacity(0.90),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.30),
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+          ),
+        ],
       ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
             Icons.favorite_rounded,
-            color: Colors.white,
+            color: orange,
             size: 18,
           ),
           SizedBox(width: 8),
@@ -864,7 +879,7 @@ class DonateScreen extends StatelessWidget {
               'تقبل الله منكم وجعلها صدقة جارية',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white,
+                color: darkGrey,
                 fontSize: 13,
                 fontWeight: FontWeight.bold,
               ),
