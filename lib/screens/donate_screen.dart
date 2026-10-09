@@ -43,12 +43,12 @@ class DonateScreen extends StatelessWidget {
                 .doc('donation_info')
                 .get(),
             builder: (context, snapshot) {
-              String bankName = 'بنك الكريمي';
+              String bankName = '';
               String accountNumber =
-                  'يمني 3155105932 - سعودي 3173113918';
+                  '';
               String transferName =
-                  'عبر الكريمي - حامد المزجاجي';
-              String phone = '779626069';
+                  '';
+              String phone = '';
 
               String hadith =
                   'قال رسول الله ﷺ:\n'
