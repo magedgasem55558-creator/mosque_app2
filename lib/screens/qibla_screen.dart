@@ -17,6 +17,11 @@ class _QiblaScreenState extends State<QiblaScreen> {
   static const double _kaabaLat = 21.422487;
   static const double _kaabaLng = 39.826206;
 
+  static const Color darkGrey = Color(0xFF454545);
+  static const Color lightGrey = Color(0xFFE6E6E6);
+  static const Color background = Color(0xFFF7F7F7);
+  static const Color orange = Color(0xFFFF8500);
+
   bool _hasPermission = false;
   bool _isLoading = true;
 
@@ -58,7 +63,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
     });
 
     try {
-      // التحقق من خدمة الموقع
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
       if (!serviceEnabled) {
@@ -73,7 +77,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
         return;
       }
 
-      // التحقق من الصلاحيات
       LocationPermission permission = await Geolocator.checkPermission();
 
       if (permission == LocationPermission.denied) {
@@ -105,7 +108,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
         return;
       }
 
-      // الحصول على الموقع
       if (!mounted) return;
 
       setState(() {
@@ -123,7 +125,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
           timeLimit: const Duration(seconds: 15),
         );
       } catch (_) {
-        // استخدام آخر موقع معروف إذا فشل GPS
         position = await Geolocator.getLastKnownPosition();
       }
 
@@ -140,7 +141,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
         return;
       }
 
-      // حساب اتجاه القبلة من موقع المستخدم
       final qiblaBearing = _calculateQiblaBearing(
         position.latitude,
         position.longitude,
@@ -177,19 +177,14 @@ class _QiblaScreenState extends State<QiblaScreen> {
     final lat1 = _degreesToRadians(userLat);
     final lat2 = _degreesToRadians(_kaabaLat);
 
-    final deltaLng =
-        _degreesToRadians(_kaabaLng - userLng);
+    final deltaLng = _degreesToRadians(_kaabaLng - userLng);
 
     final y = math.sin(deltaLng) * math.cos(lat2);
 
-    final x =
-        math.cos(lat1) * math.sin(lat2) -
-        math.sin(lat1) *
-            math.cos(lat2) *
-            math.cos(deltaLng);
+    final x = math.cos(lat1) * math.sin(lat2) -
+        math.sin(lat1) * math.cos(lat2) * math.cos(deltaLng);
 
-    final bearing =
-        math.atan2(y, x) * 180.0 / math.pi;
+    final bearing = math.atan2(y, x) * 180.0 / math.pi;
 
     return _normalizeAngle(bearing);
   }
@@ -214,8 +209,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
 
   // ============================================================
   // حساب أقصر فرق زاوي بين الهاتف والقبلة
-  //
-  // النتيجة من -180 إلى +180
   // ============================================================
 
   double _angleDifference(
@@ -237,9 +230,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
 
   // ============================================================
   // تنعيم اتجاه الهاتف
-  //
-  // مهم:
-  // نقوم بتنعيم Heading الهاتف وليس Bearing القبلة.
   // ============================================================
 
   double _smoothHeading(double newHeading) {
@@ -279,14 +269,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
 
   // ============================================================
   // اتجاه السهم
-  //
-  // نريد أن يشير السهم دائمًا من مركز الشاشة إلى القبلة.
-  //
-  // إذا كان الهاتف متجهًا شمالًا:
-  // القبلة تظهر حسب Bearing القبلة.
-  //
-  // إذا تحرك الهاتف:
-  // نطرح Heading الهاتف من Bearing القبلة.
   // ============================================================
 
   double _getArrowRotation(
@@ -309,15 +291,16 @@ class _QiblaScreenState extends State<QiblaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: background,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF454545),
-              Color(0xFFE6E6E6),
-              Color(0xFFF5F5F5),
+              darkGrey,
+              lightGrey,
+              background,
             ],
             stops: [
               0.0,
@@ -330,7 +313,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
           child: Column(
             children: [
               _buildHeader(),
-
               Expanded(
                 child: _isLoading
                     ? _buildLoading()
@@ -378,7 +360,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
                 Navigator.pop(context);
               },
             ),
-
             const Expanded(
               child: Text(
                 'اتجاه القبلة',
@@ -390,7 +371,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
                 ),
               ),
             ),
-
             const SizedBox(width: 48),
           ],
         ),
@@ -408,7 +388,7 @@ class _QiblaScreenState extends State<QiblaScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const CircularProgressIndicator(
-            color: const Color(0xFFFF8500),
+            color: orange,
           ),
           const SizedBox(height: 20),
           Padding(
@@ -443,11 +423,10 @@ class _QiblaScreenState extends State<QiblaScreen> {
           );
         }
 
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(
-              color: const Color(0xFFFF8500),
+              color: orange,
             ),
           );
         }
@@ -466,49 +445,26 @@ class _QiblaScreenState extends State<QiblaScreen> {
           );
         }
 
-        // --------------------------------------------------------
-        // قراءة اتجاه الهاتف من الحساس
-        //
-        // flutter_qiblah يوفر اتجاه الجهاز.
-        // لا نستخدم qiblahDirection.qiblah هنا.
-        // --------------------------------------------------------
-
         final rawHeading = _normalizeAngle(
           data.direction,
         );
 
         final heading = _smoothHeading(rawHeading);
-
         _heading = heading;
-
-        // --------------------------------------------------------
-        // حساب الفرق الحقيقي بين الهاتف والقبلة
-        // --------------------------------------------------------
 
         final difference = _angleDifference(
           _qiblaBearing!,
           heading,
         );
 
-        final absoluteDifference =
-            difference.abs();
-
-        // أقل من 5 درجات = مواجهة القبلة
-        final isFacingQibla =
-            absoluteDifference <= 5.0;
+        final absoluteDifference = difference.abs();
+        final isFacingQibla = absoluteDifference <= 5.0;
 
         _handleHaptic(isFacingQibla);
 
-        final activeColor = isFacingQibla
-            ? const Color(0xFF555555)
-            : const Color(0xFFFF8500);
+        final activeColor = isFacingQibla ? darkGrey : orange;
 
-        // --------------------------------------------------------
-        // دوران السهم
-        // --------------------------------------------------------
-
-        final arrowRotation =
-            _getArrowRotation(
+        final arrowRotation = _getArrowRotation(
           _qiblaBearing!,
           heading,
         );
@@ -518,31 +474,23 @@ class _QiblaScreenState extends State<QiblaScreen> {
           child: Column(
             children: [
               const SizedBox(height: 10),
-
               _buildCalibrationWarning(),
-
               const SizedBox(height: 18),
-
               _buildQiblaStatus(
                 isFacingQibla,
                 activeColor,
               ),
-
               const SizedBox(height: 28),
-
               _buildCompass(
                 arrowRotation,
                 activeColor,
               ),
-
               const SizedBox(height: 28),
-
               _buildDataCard(
                 difference,
                 absoluteDifference,
                 activeColor,
               ),
-
               const SizedBox(height: 20),
             ],
           ),
@@ -565,17 +513,17 @@ class _QiblaScreenState extends State<QiblaScreen> {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: Colors.amber.shade50,
+        color: orange.withOpacity(0.12),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: Colors.amber.shade300,
+          color: orange.withOpacity(0.30),
         ),
       ),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.explore_rounded,
-            color: Colors.amber.shade900,
+            color: darkGrey,
             size: 22,
           ),
           const SizedBox(width: 10),
@@ -586,7 +534,7 @@ class _QiblaScreenState extends State<QiblaScreen> {
               'وإذا كانت البوصلة غير مستقرة حرّك الهاتف '
               'بحركة رقم 8 لمعايرة الحساس.',
               style: TextStyle(
-                color: Colors.amber.shade900,
+                color: Colors.grey.shade800,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
@@ -673,7 +621,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // الدائرة الخارجية
           Container(
             width: 310,
             height: 310,
@@ -689,8 +636,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
               ],
             ),
           ),
-
-          // الدائرة الداخلية
           Container(
             width: 280,
             height: 280,
@@ -702,11 +647,7 @@ class _QiblaScreenState extends State<QiblaScreen> {
               ),
             ),
           ),
-
-          // علامات الاتجاهات
           _buildDirectionLabels(),
-
-          // سهم القبلة
           AnimatedRotation(
             turns: arrowRotation / (2 * math.pi),
             duration: const Duration(
@@ -719,13 +660,11 @@ class _QiblaScreenState extends State<QiblaScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 15),
-
                   Icon(
                     Icons.navigation_rounded,
                     size: 62,
                     color: activeColor,
                   ),
-
                   Expanded(
                     child: Container(
                       width: 3,
@@ -733,10 +672,8 @@ class _QiblaScreenState extends State<QiblaScreen> {
                         bottom: 15,
                       ),
                       decoration: BoxDecoration(
-                        color:
-                            activeColor.withOpacity(0.35),
-                        borderRadius:
-                            BorderRadius.circular(10),
+                        color: activeColor.withOpacity(0.35),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
@@ -744,29 +681,26 @@ class _QiblaScreenState extends State<QiblaScreen> {
               ),
             ),
           ),
-
-          // المركز
           Container(
             width: 58,
             height: 58,
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: darkGrey,
               shape: BoxShape.circle,
               border: Border.all(
-                color: const Color(0xFFFF8500),
+                color: orange,
                 width: 3,
               ),
               boxShadow: [
                 BoxShadow(
-                  color:
-                      const Color(0xFFFF8500).withOpacity(0.35),
+                  color: orange.withOpacity(0.35),
                   blurRadius: 12,
                 ),
               ],
             ),
             child: const Icon(
               Icons.mosque_rounded,
-              color: const Color(0xFFFF8500),
+              color: orange,
               size: 30,
             ),
           ),
@@ -799,7 +733,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
               ),
             ),
           ),
-
           const Align(
             alignment: Alignment.centerRight,
             child: Padding(
@@ -814,7 +747,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
               ),
             ),
           ),
-
           const Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -829,7 +761,6 @@ class _QiblaScreenState extends State<QiblaScreen> {
               ),
             ),
           ),
-
           const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -879,24 +810,18 @@ class _QiblaScreenState extends State<QiblaScreen> {
             'زاوية القبلة',
             '${_qiblaBearing?.toStringAsFixed(1) ?? '--'}°',
           ),
-
           const Divider(height: 22),
-
           _buildDataRow(
             'اتجاه الهاتف',
             '${_heading?.toStringAsFixed(1) ?? '--'}°',
           ),
-
           const Divider(height: 22),
-
           _buildDataRow(
             'الانحراف عن القبلة',
             '${absoluteDifference.toStringAsFixed(1)}°',
             valueColor: activeColor,
           ),
-
           const SizedBox(height: 10),
-
           _buildDirectionHint(difference),
         ],
       ),
@@ -909,8 +834,7 @@ class _QiblaScreenState extends State<QiblaScreen> {
     Color? valueColor,
   }) {
     return Row(
-      mainAxisAlignment:
-          MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
@@ -946,19 +870,18 @@ class _QiblaScreenState extends State<QiblaScreen> {
           color: const Color(0xFFF5F5F5),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text(
+        child: const Text(
           'القبلة أمامك مباشرة 🕋',
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: const Color(0xFF333333),
+            color: darkGrey,
             fontWeight: FontWeight.bold,
           ),
         ),
       );
     }
 
-    final direction =
-        difference > 0 ? 'يمين' : 'يسار';
+    final direction = difference > 0 ? 'يمين' : 'يسار';
 
     return Container(
       width: double.infinity,
@@ -966,15 +889,15 @@ class _QiblaScreenState extends State<QiblaScreen> {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF3E0),
+        color: orange.withOpacity(0.12),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
         'حرّك الهاتف $direction '
         '${difference.abs().toStringAsFixed(1)}°',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          color: const Color(0xFFE66700),
+        style: const TextStyle(
+          color: orange,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -1011,17 +934,14 @@ class _QiblaScreenState extends State<QiblaScreen> {
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.location_off_rounded,
               size: 70,
               color: Colors.redAccent,
             ),
-
             const SizedBox(height: 18),
-
             Text(
               _statusMessage,
               textAlign: TextAlign.center,
@@ -1031,9 +951,7 @@ class _QiblaScreenState extends State<QiblaScreen> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-
             const SizedBox(height: 26),
-
             ElevatedButton.icon(
               onPressed: _initialize,
               icon: const Icon(Icons.refresh),
@@ -1044,15 +962,14 @@ class _QiblaScreenState extends State<QiblaScreen> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFF8500),
+                backgroundColor: orange,
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 28,
                   vertical: 13,
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(14),
                 ),
               ),
             ),
