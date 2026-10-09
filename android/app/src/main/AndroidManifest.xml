@@ -60,7 +60,7 @@
 
     <application
         android:name="${applicationName}"
-        android:label="مسجد الخلفاء الراشدين"
+        android:label="مدرسة القادسية"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="false">
 
