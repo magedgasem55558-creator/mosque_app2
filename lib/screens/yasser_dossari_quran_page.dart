@@ -459,7 +459,7 @@ class _YasserDossariQuranPageState
                 'ميزة رائعة للاستماع في أي وقت',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: const Color(0xFFFF8500).shade700,
+                  color: const Color(0xFFD96B00),
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                 ),
@@ -515,7 +515,7 @@ class _YasserDossariQuranPageState
                   children: [
                     Icon(
                       Icons.info_outline_rounded,
-                      color: const Color(0xFFFF8500).shade600,
+                      color: const Color(0xFFF57C00),
                       size: 19,
                     ),
                     const SizedBox(width: 8),
@@ -525,7 +525,7 @@ class _YasserDossariQuranPageState
                         'التي تم تنزيلها من قسم التنزيلات، '
                         'مع معرفة اسم القارئ لكل سورة.',
                         style: TextStyle(
-                          color: const Color(0xFFFF8500).shade800,
+                          color: const Color(0xFFE66700),
                           fontSize: 12.5,
                           height: 1.4,
                           fontWeight: FontWeight.w500,
